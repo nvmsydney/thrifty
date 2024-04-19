@@ -1,0 +1,28 @@
+.scrollable-row {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap; 
+  }
+  
+  .scrollable-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .image-icon {
+    width: 250px;
+    height: 250px;
+    padding: 0px;
+    cursor: pointer;
+    display: inline-block; 
+    margin-right: 25px; 
+    object-fit: cover;
+  }
+
+  .image-container {
+    text-align: left; 
+    padding: 0px;
+  }
+  
+  .item-text {
+      max-width: 250px;
+  }

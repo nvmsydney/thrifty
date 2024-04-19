@@ -1,0 +1,50 @@
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+.full-width-image {
+    width: 100%;    
+    height: auto;   
+    display: block;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.text-over-image-container .position-relative {
+    text-align: center; 
+}
+
+.text-title {
+    font-size: 3.5vw;
+    font-weight: 400;
+}
+  
+.text-description {
+    font-size: 1.25vw;
+}
+  
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+.square-button {
+    border-radius: 0 !important; 
+    padding: 0.5em 1em;
+    font-size: 1.20vw;
+    white-space: nowrap;
+}
+  
+.button-spacing {
+    margin: 0.5rem;
+}
+
+.position-relative {
+    position: relative;
+}

@@ -1,0 +1,25 @@
+.scrollable-row {
+    overflow-x: auto;
+    white-space: nowrap; 
+  }
+  
+  .scrollable-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .designer-icon {
+    width: 180px;
+    height: 165px;
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 50%; 
+    cursor: pointer;
+    display: inline-block; 
+    margin-right: 25px; 
+    object-fit: cover;
+  }
+  
+  .designer-icon:hover {
+    border-color: #aaa;
+    transition: border-color 0.3s;
+  }
