@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import look1 from "../assets/look1.webp";
 import look2 from "../assets/look2.webp";

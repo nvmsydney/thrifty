@@ -1,5 +1,4 @@
-import React from "react";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Image } from "react-bootstrap";
 import coach from "../assets/coach.jpg";
 import chanel from "../assets/chanel.jpg";
 import LV from "../assets/LV-logo.jpg";

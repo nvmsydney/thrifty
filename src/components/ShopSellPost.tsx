@@ -1,5 +1,4 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { FaRegCreditCard } from "react-icons/fa";
 import { IoCashOutline } from "react-icons/io5";
 import { IoCameraOutline } from "react-icons/io5";

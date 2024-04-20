@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import men1 from "../assets/men1.jpg";
 import men2 from "../assets/men2.jpg";
