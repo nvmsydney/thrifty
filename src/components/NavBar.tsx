@@ -6,7 +6,7 @@ function NavBar() {
   return (
     <Navbar className="navbar-custom" expand="lg">
       <Container>
-        <LinkContainer to="/">
+        <LinkContainer to="/~24SP_jacksonja13/home">
           <Navbar.Brand className="navbar-brand-centered navbar-brand">
             Thrifty
           </Navbar.Brand>
