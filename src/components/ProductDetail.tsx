@@ -45,8 +45,8 @@ function ProductDetail() {
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
           <h3>${product.price.toFixed(2)}</h3>
-          <Button variant="outline-primary" className="m-1">Add to cart</Button>
-          <Button variant="primary" className="m-1">Buy now</Button>
+          <Button variant="outline-dark" className="m-1">Add to cart</Button>
+          <Button variant="btn btn-dark" className="m-1">Buy now</Button>
           <hr />
           <h4>Details</h4>
           <p>Condition: {product.details.condition}</p>
