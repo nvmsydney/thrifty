@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import StylePreview from "./components/StylePreview";
@@ -11,14 +12,15 @@ import ProductDetail from "./components/ProductDetail";
 import Community from "./components/Community";
 import LoginBox from "./components/LoginBox";
 
-
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <BrowserRouter>
       <div className="d-flex flex-column h-100">
-        <NavBar />
+        {isLoggedIn && <NavBar />}
         <Routes>
-        <Route path="/~24SP_jacksonja13" element ={<LoginBox />} />
+          <Route path="/~24SP_jacksonja13" element={<LoginBox />} />
           <Route
             path="/"
             element={
