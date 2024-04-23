@@ -44,7 +44,7 @@ function ProductDetail() {
         </Col>
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
-          <h3>${product.price.toFixed(2)}</h3>
+          <h3 className="pt-3">${product.price.toFixed(2)}</h3>
           <Button variant="outline-dark" className="m-1">Add to cart</Button>
           <Button variant="btn btn-dark" className="m-1">Buy now</Button>
           <hr />

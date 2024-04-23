@@ -30,9 +30,9 @@ function App() {
               </div>
             }
           />
-          <Route path="/men/:productSlug" element={<ProductDetail />} />
-          <Route path="/community" element={<Community />} />
-          <Route path="/account" element={<EditAccount />} />
+          <Route path="/~24SP_jacksonja13/men/:productSlug" element={<ProductDetail />} />
+          <Route path="/~24SP_jacksonja13/community" element={<Community />} />
+          <Route path="/~24SP_jacksonja13/account" element={<EditAccount />} />
         </Routes>
         <Footer />
       </div>
