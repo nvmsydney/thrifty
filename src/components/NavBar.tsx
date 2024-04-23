@@ -1,64 +1,86 @@
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { IoBagOutline } from "react-icons/io5";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import { LinkContainer } from "react-router-bootstrap";
 
 function NavBar() {
   return (
     <Navbar className="navbar-custom" expand="lg">
       <Container>
-        <Navbar.Brand
-          href="#home"
-          className="navbar-brand-centered navbar-brand"
-        >
-          Thrifty
-        </Navbar.Brand>
+        <LinkContainer to="/">
+          <Navbar.Brand className="navbar-brand-centered navbar-brand">
+            Thrifty
+          </Navbar.Brand>
+        </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Item>
               <NavDropdown title="Women" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Bottoms</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Dresses</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Tops</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.4">
-                  Outerwear
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.5">Bags</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.5">Sneakers</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.6">
-                  Accessories
-                </NavDropdown.Item>
+                <LinkContainer to="/women/bottoms">
+                  <NavDropdown.Item>Bottoms</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/women/dresses">
+                  <NavDropdown.Item>Dresses</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/women/tops">
+                  <NavDropdown.Item>Tops</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/women/outerwear">
+                  <NavDropdown.Item>Outerwear</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/women/bags">
+                  <NavDropdown.Item>Bags</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/women/sneakers">
+                  <NavDropdown.Item>Sneakers</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/women/accessories">
+                  <NavDropdown.Item>Accessories</NavDropdown.Item>
+                </LinkContainer>
               </NavDropdown>
             </Nav.Item>
             <Nav.Item>
               <NavDropdown title="Men" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Bottoms</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Dresses</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Tops</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.4">
-                  Outerwear
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.5">Sneakers</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.6">
-                  Accessories
-                </NavDropdown.Item>
+                <LinkContainer to="/men/bottoms">
+                  <NavDropdown.Item>Bottoms</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/men/tops">
+                  <NavDropdown.Item>Tops</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/men/outerwear">
+                  <NavDropdown.Item>Outerwear</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/men/sneakers">
+                  <NavDropdown.Item>Sneakers</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/men/accessories">
+                  <NavDropdown.Item>Accessories</NavDropdown.Item>
+                </LinkContainer>
               </NavDropdown>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#sneakers">Community</Nav.Link>
+              <LinkContainer to="/community">
+                <Nav.Link>Community</Nav.Link>
+              </LinkContainer>
             </Nav.Item>
           </Nav>
           <Nav>
             <Nav.Item>
-              <Nav.Link href="sell">Sell</Nav.Link>
+              <LinkContainer to="/sell">
+                <Nav.Link>Sell</Nav.Link>
+              </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="account">Account</Nav.Link>
+              <LinkContainer to="/account">
+                <Nav.Link>Account</Nav.Link>
+              </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="account">
-                <IoBagOutline size={25} />
-              </Nav.Link>
+              <LinkContainer to="/cart">
+                <Nav.Link>
+                  <IoBagOutline size={25} />
+                </Nav.Link>
+              </LinkContainer>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>

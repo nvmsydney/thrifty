@@ -1,0 +1,31 @@
+.mainImage {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px; /* Space between main image and thumbnails */
+}
+
+.thumbnails {
+    display: flex;
+    justify-content: start; /* Align items to the start */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    flex-wrap: nowrap; /* Prevent wrapping of items */
+    gap: 10px;
+    margin-top: 10px; /* Optional: adds some space between main image and thumbnails */
+}
+
+.thumbnailImage {
+    flex: 0 0 auto; /* Ensures that thumbnails do not grow or shrink */
+    width: 100px; /* Fixed width for thumbnails */
+    height: auto; /* Maintain aspect ratio */
+    cursor: pointer;
+    padding: 3px;
+    border: 1px solid #ccc; /* Adds a border for visual separation */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds shadow for depth */
+}
+
+
+  @media (min-width: 768px) {
+    .thumbnailImage {
+        max-width: 10%; /* Smaller max-width for larger screens */
+    }
+}

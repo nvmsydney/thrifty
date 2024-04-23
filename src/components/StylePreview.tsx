@@ -1,4 +1,5 @@
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import look1 from "../assets/look1.webp";
 import look2 from "../assets/look2.webp";
 import look3 from "../assets/look3.webp";
@@ -19,12 +20,22 @@ function ShapeExample() {
                 Light as air, bright as spring: find your next go-anywhere style
                 for the new season.
               </p>
-              <Button variant="outline-light" className="square-button button-spacing">
-                SHOP WOMEN
-              </Button>
-              <Button variant="outline-light" className="square-button button-spacing">
-                SHOP MEN
-              </Button>
+              <LinkContainer to="/women/bottoms">
+                <Button
+                  variant="outline-light"
+                  className="square-button button-spacing"
+                >
+                  SHOP WOMEN
+                </Button>
+              </LinkContainer>
+              <LinkContainer to="/men/bottoms">
+                <Button
+                  variant="outline-light"
+                  className="square-button button-spacing"
+                >
+                  SHOP MEN
+                </Button>
+              </LinkContainer>
             </div>
           </div>
         </Col>
