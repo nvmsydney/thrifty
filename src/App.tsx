@@ -22,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/~24SP_jacksonja13" element={<LoginBox />} />
           <Route
-            path="/"
+            path="/~24SP_jacksonja13/home"
             element={
               <div className="content">
                 <StylePreview />
