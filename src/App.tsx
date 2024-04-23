@@ -9,6 +9,8 @@ import ShopSellPost from "./components/ShopSellPost";
 import EditAccount from "./components/EditAccount";
 import ProductDetail from "./components/ProductDetail";
 import Community from "./components/Community";
+import LoginBox from "./components/LoginBox";
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
       <div className="d-flex flex-column h-100">
         <NavBar />
         <Routes>
+        <Route path="/~24SP_jacksonja13" element ={<LoginBox />} />
           <Route
             path="/"
             element={
