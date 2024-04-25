@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Container, Card, Button } from 'react-bootstrap';
 import husky from '../assets/husky.webp';
 import cat from '../assets/cat.jpg';
