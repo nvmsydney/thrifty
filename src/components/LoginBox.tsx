@@ -1,6 +1,9 @@
 import { useState } from 'react';
-import { Container } from 'react-bootstrap';
+
 import {  useNavigate} from 'react-router-dom';
+import Prada from '../assets/Prada The Galleria starring Scarlett Johansson.mov';
+import './css/backgroundVideo.css';
+
 
 //Function creates a the login Box
 const LoginBox = () => {
@@ -10,7 +13,7 @@ const LoginBox = () => {
     const navigate = useNavigate();
 //Function routes to sign in page
     const signing_up = () =>{
-        window.location.href = '/~24/home';
+        navigate('/~24SP_Jacksonja13/Signup')
     }
 //Function that will set the email and password for the hooks
     const handleChange = (event: { target: { name: any; value: any; }; }) => {
@@ -40,7 +43,11 @@ const LoginBox = () => {
             const data = await response.json();
 
             if (data.success) {
-             
+                //sets the cookie 
+                document.cookie = 'email='+data.email;
+                document.cookie = 'username='+data.username;
+                document.cookie = 'bio='+data.bio; 
+                document.cookie = data.gender;  
                 navigate("/~24SP_Jacksonja13/home");
             } else {
                 setLoginError(true);
@@ -53,7 +60,11 @@ const LoginBox = () => {
 //Creates the html and css for the login page
     return (
         <>
-        <Container className="mt-3 mb-3">
+        <div className='WholeBackGround' >
+        
+        <video src = {Prada} autoPlay loop muted className ="videobackground"/>
+        
+            <div className = 'Container'>
             <form onSubmit={handleSubmit}>
                 <div className="row justify-content-center">
                     <div className="col-4">
@@ -71,8 +82,8 @@ const LoginBox = () => {
                     </div>
                 </div>
             </form>
-        </Container>
-         
+            </div>
+         </div>
        
         </> 
     );

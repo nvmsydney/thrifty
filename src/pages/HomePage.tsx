@@ -7,9 +7,11 @@ import HomeWomenswear from "../components/HomeWomenswear";
 import ShopSellPost from "../components/ShopSellPost";
 
 function HomePage() {
+    
   return (
+    
     <div className="d-flex flex-column h-100">
-      <NavBar />
+     <NavBar /> 
       <StylePreview />
       <PopularDesigners />
       <HomeMenswear />
@@ -17,6 +19,8 @@ function HomePage() {
       <ShopSellPost />
       <Footer />
     </div>
+    
+    
   );
 }
 

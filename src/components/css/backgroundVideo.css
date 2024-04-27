@@ -1,0 +1,13 @@
+.videobackground{
+position: absolute;
+width: 100%;
+height: 100%;
+object-fit: cover;
+z-index: -1;
+}
+
+.Container {
+width :100%;
+height: 100%;
+z-index: 1;
+}

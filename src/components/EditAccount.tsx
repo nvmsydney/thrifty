@@ -1,4 +1,6 @@
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
+const info = document.cookie.split(';');
+ 
 
 const EditAccount = () => {
   return (
@@ -16,17 +18,17 @@ const EditAccount = () => {
             {/* Email Address */}
             <Form.Group className="mb-3 pt-4" controlId="formEmail">
               <Form.Label>Email Address:</Form.Label>
-              <Form.Control type="email" placeholder="Email Address" />
+              <Form.Control type="email" value={info[1].substring(info[1].indexOf('=') + 1,info[1].length )} />
             </Form.Group>
             {/* Username */}
             <Form.Group className="mb-3" controlId="formUsername">
               <Form.Label>Username:</Form.Label>
-              <Form.Control type="text" placeholder="Username" />
+              <Form.Control type="text" value= {info[0].substring(info[0].indexOf('=') + 1,info[0].length )} />
             </Form.Group>
             {/* Bio */}
             <Form.Group className="mb-3" controlId="formBio">
               <Form.Label>Bio:</Form.Label>
-              <Form.Control as="textarea" rows={3} placeholder="Bio" />
+              <Form.Control as="textarea" rows={3} value={info[2].substring(info[2].indexOf('=') + 1,info[2].length )} />
             </Form.Group>
             {/* Head Circumference */}
             <Form.Group className="mb-3" controlId="formHeadCircumference">
