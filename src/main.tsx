@@ -18,6 +18,7 @@ import SignUp from "./components/SignUp.tsx";
 import EditAccount from "./components/EditAccount.tsx";
 import Community from "./components/Community.tsx";
 import ProductDetail from "./components/ProductDetail.tsx";
+import AddPost from "./components/AddPost.tsx";
 
 const router=createBrowserRouter([{
   path:'/~24SP_Jacksonja13',
@@ -37,7 +38,13 @@ const router=createBrowserRouter([{
 },{
   path:'/~24SP_Jacskonja13/men/:productSlug',
   element:<ProductDetail />
-  }
+},{
+  path:'/~24SP_Jacksonja13/addpost',
+  element:<AddPost/>
+},{
+  
+  
+}
 ]);
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

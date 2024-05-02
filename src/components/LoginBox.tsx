@@ -47,7 +47,7 @@ const LoginBox = () => {
                 document.cookie = 'email='+data.email;
                 document.cookie = 'username='+data.username;
                 document.cookie = 'bio='+data.bio; 
-                document.cookie = data.gender;  
+    
                 navigate("/~24SP_Jacksonja13/home");
             } else {
                 setLoginError(true);
