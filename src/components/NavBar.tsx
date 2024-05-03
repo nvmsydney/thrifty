@@ -1,4 +1,4 @@
-import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { IoBagOutline } from "react-icons/io5";
 import { LinkContainer } from "react-router-bootstrap";
 
