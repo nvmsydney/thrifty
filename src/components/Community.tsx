@@ -1,13 +1,6 @@
-
-import { Container, Card, Button } from 'react-bootstrap';
-import cat from '../assets/cat.jpg';
-import husky2 from '../assets/husky2.jpg';
-import cat2 from '../assets/cat.jpg';
-import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import husky from '../assets/husky.webp';
-import { post } from 'jquery';
-//trying a function to get all of the data used for the post( need to do this off the following)
+import React, { useState, useEffect, ChangeEvent } from "react";
+import { Container, Card, Button, Modal, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 interface Post {
   id: number;
@@ -15,87 +8,113 @@ interface Post {
   caption: string;
   imageSrc: string;
 }
-const Community =()=> {
 
-  const [communityPosts, setCommunityPosts] = useState<Post[]>([]); 
-  
+const Community = () => {
+  const [communityPosts, setCommunityPosts] = useState<Post[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [image, setImage] = useState("");
+  const [bodyText, setBodyText] = useState("");
+
   useEffect(() => {
-    
-    const getPost = async () => {
-      try {
-        const response = await fetch("https://www.cmsc508.com/~24SP_jacksonja13/API.php", {
-        method: "POST",
-        headers: {"Content-Type": 'application/json'},
-        body: JSON.stringify({
-          action: 'GetPostInfo'
-        })
-      });
+    const fetchPosts = async () => {
+      const response = await fetch(
+        "https://www.cmsc508.com/~24SP_jacksonja13/API.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "GetPostInfo" }),
+        }
+      );
       const data = await response.json();
-      if (data.success ) {
+      if (data.success) {
         const posts = data.post.map((postArray: any[][]) => ({
           id: postArray[0][0],
           username: postArray[0][1],
           caption: postArray[0][2],
-          imageSrc: postArray[0][3]
+          imageSrc: postArray[0][3],
         }));
         setCommunityPosts(posts);
-      } else {
-        // Handle unsuccessful response
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
+    };
+    fetchPosts();
+  }, []);
+
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files![0];
+    const reader = new FileReader();
+    reader.onload = () => setImage(reader.result as string);
+    reader.readAsDataURL(file);
+  };
+
+  const handleChange = (event: { target: { name: string; value: string } }) => {
+    const { name, value } = event.target;
+    if (name === "bodyText") {
+      setBodyText(value);
     }
   };
 
-  // Call loading function when component mounts
-  getPost();
-}, []); 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // send data here?
+    setShowModal(false);
+  };
 
-// Mock data
-const communityPostss = [
-  {
-    id: 1,
-    username: 'nvmSydney',
-    avatar: husky2,
-    caption: 'HEY GUYS!!! Here’s my outfit today :)',
-    imageSrc: "", // Replace with actual path to image
-    
-  },
-  {
-    id: 2,
-    username: 'jermaneJ',
-    avatar: cat2,
-    caption: 'Just chilling in my new hoodie...',
-    imageSrc: cat, // Replace with actual path to image
-  },
-  // Add more posts as needed...
-];
-
-  const navigate = useNavigate();
-  const navigateTo=()=> {
-    navigate("/~24SP_Jacksonja13/addpost");
-  }
-  
   return (
     <Container className="communityFeed">
       {communityPosts.map((post) => (
         <Card key={post.id} className="postCard">
           <Card.Header className="postHeader">
-            <img src={husky} alt="Avatar" className="avatar rounded-circle" />
+            <img
+              src={post.imageSrc}
+              alt="Avatar"
+              className="avatar rounded-circle"
+            />
             <div className="postUsername">{post.username}</div>
           </Card.Header>
           <Card.Img variant="top" src={post.imageSrc} className="postImage" />
           <Card.Body className="postCaption">
-          <Card.Text><b>{post.username}</b> {post.caption}</Card.Text>
+            <Card.Text>
+              <b>{post.username}</b> {post.caption}
+            </Card.Text>
           </Card.Body>
         </Card>
       ))}
-      <Button className="addPostButton" onClick={navigateTo}>+</Button>
+      <Button className="addPostButton" onClick={() => setShowModal(true)}>
+        +
+      </Button>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Upload a Post</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label>Upload your image</Form.Label>
+              <Form.Control
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Caption</Form.Label>
+              <textarea
+                rows={3}
+                name="bodyText"
+                value={bodyText}
+                onChange={handleChange}
+                className="form-control"
+              ></textarea>
+            </Form.Group>
+            <Button variant="dark" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
     </Container>
   );
-}
-
+};
 
 export default Community;
-
-
