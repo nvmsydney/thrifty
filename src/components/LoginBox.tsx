@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import {  useNavigate} from 'react-router-dom';
-import Prada from '../assets/Prada The Galleria starring Scarlett Johansson.mov';
 import './css/backgroundVideo.css';
 
 
@@ -62,7 +61,6 @@ const LoginBox = () => {
         <>
         <div className='WholeBackGround' >
         
-        <video src = {Prada} autoPlay loop muted className ="videobackground"/>
         
             <div className = 'Container'>
             <form onSubmit={handleSubmit}>
