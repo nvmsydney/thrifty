@@ -27,6 +27,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ShoppingCartPage from "./pages/ShoppingCartPage"
 import MensCatalogPage from "./pages/MensCatalogPage"
 import WomensCatalogPage from "./pages/WomensCatalogPage"
+import DirectMessage from "./components/DirectMessaging";
 
 const router = createBrowserRouter([
   { path: "/~24SP_Jacksonja13", element: <LoginBox /> },
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
   { path: "/~24SP_Jacksonja13/cart", element: <ShoppingCartPage /> },
   { path: "/~24SP_Jacksonja13/men", element: <MensCatalogPage /> },
   { path: "/~24SP_Jacksonja13/women", element: <WomensCatalogPage /> },
-
+  { path: '/~24SP_Jacksonja13/directmessage', element: <DirectMessage/>}
 
 ]);
 
