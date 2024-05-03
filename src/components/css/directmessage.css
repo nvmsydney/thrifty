@@ -1,0 +1,27 @@
+    .messageOutlay{
+    height: 95vh;
+    display: flex;    
+    justify-content: center;
+    
+    }
+    .messageSender {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        overflow-y: auto;
+        border-color:black;
+    }
+    .boxForMessage {
+        overflow-y: auto;
+        border:3px solid black;
+        position:sticky;
+        align-items: center;
+        justify-content: center;
+        height: 95%;  
+        width: 80%;
+        margin-bottom: 5px;
+    }
+    
+    .input {
+        flex-grow: 1;
+    }
