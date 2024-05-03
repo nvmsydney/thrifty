@@ -20,7 +20,7 @@ function ShapeExample() {
                 Light as air, bright as spring: find your next go-anywhere style
                 for the new season.
               </p>
-              <LinkContainer to="/women/bottoms">
+              <LinkContainer to="/~24SP_jacksonja13/women">
                 <Button
                   variant="outline-light"
                   className="square-button button-spacing"
@@ -28,7 +28,7 @@ function ShapeExample() {
                   SHOP WOMEN
                 </Button>
               </LinkContainer>
-              <LinkContainer to="/men/bottoms">
+              <LinkContainer to="/~24SP_jacksonja13/men">
                 <Button
                   variant="outline-light"
                   className="square-button button-spacing"
