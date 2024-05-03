@@ -11,6 +11,7 @@ import "./components/css/shopsellpost.css";
 import "./components/css/editaccount.css";
 import "./components/css/productdetails.css";
 import "./components/css/community.css";
+import "./components/css/profile.css";
 
 import LoginBox from "./components/LoginBox";
 import HomePage from "./pages/HomePage";
@@ -20,6 +21,7 @@ import CommunityPage from "./pages/CommunityPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import AddPost from "./components/AddPost";
 import SellPage from "./pages/SellPage";
+import ProfilePage from "./pages/ProfilePage";
 
 
 const router = createBrowserRouter([
@@ -31,6 +33,7 @@ const router = createBrowserRouter([
   { path: "/~24SP_Jacksonja13/community", element: <CommunityPage /> },
   { path: "/~24SP_Jacksonja13/men/:productSlug", element: <ProductDetailPage /> },
   { path: "/~24SP_Jacksonja13/addpost", element: <AddPost /> },
+  { path: "/~24SP_Jacksonja13/profile", element: <ProfilePage /> },
 ]);
 
 const rootElement = document.getElementById("root");
