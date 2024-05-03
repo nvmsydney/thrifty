@@ -1,0 +1,28 @@
+.product-details .row {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    margin-right: 50px;
+}
+
+.checkout-details {
+    margin-bottom: 20px;
+    font-size: 16px;
+    border-left: 1px solid #ccc;
+    padding-left: 20px;
+}
+
+.product-details {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.form-control {
+    width: auto;
+    margin-top: 10px;
+}
+
+.button {
+    margin-top: 20px;
+    padding: 10px 20px;
+}

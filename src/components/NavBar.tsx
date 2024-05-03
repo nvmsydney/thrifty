@@ -14,49 +14,15 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Item>
-              <NavDropdown title="Women" id="basic-nav-dropdown">
-                <LinkContainer to="/~24SP_jacksonja13/women/bottoms">
-                  <NavDropdown.Item>Bottoms</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/~24SP_jacksonja13/women/dresses">
-                  <NavDropdown.Item>Dresses</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/~24SP_jacksonja13/women/tops">
-                  <NavDropdown.Item>Tops</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/~24SP_jacksonja13/women/outerwear">
-                  <NavDropdown.Item>Outerwear</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/~24SP_jacksonja13/women/bags">
-                  <NavDropdown.Item>Bags</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/~24SP_jacksonja13/women/sneakers">
-                  <NavDropdown.Item>Sneakers</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/~24SP_jacksonja13/women/accessories">
-                  <NavDropdown.Item>Accessories</NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
+          <Nav.Item>
+              <LinkContainer to="/~24SP_jacksonja13/women">
+                <Nav.Link>Women</Nav.Link>
+              </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <NavDropdown title="Men" id="basic-nav-dropdown">
-                <LinkContainer to="/~24SP_jacksonja13/men/bottoms">
-                  <NavDropdown.Item>Bottoms</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/~24SP_jacksonja13/men/tops">
-                  <NavDropdown.Item>Tops</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/~24SP_jacksonja13/men/outerwear">
-                  <NavDropdown.Item>Outerwear</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/~24SP_jacksonja13/men/sneakers">
-                  <NavDropdown.Item>Sneakers</NavDropdown.Item>
-                </LinkContainer>
-                <LinkContainer to="/~24SP_jacksonja13/men/accessories">
-                  <NavDropdown.Item>Accessories</NavDropdown.Item>
-                </LinkContainer>
-              </NavDropdown>
+              <LinkContainer to="/~24SP_jacksonja13/men">
+                <Nav.Link>Men</Nav.Link>
+              </LinkContainer>
             </Nav.Item>
             <Nav.Item>
               <LinkContainer to="/~24SP_jacksonja13/community">

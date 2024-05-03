@@ -1,0 +1,35 @@
+.pic-icon {
+    width: 320px;
+    height: 420px;
+    padding: 0px;
+    cursor: pointer;
+    display: block; 
+    object-fit: cover;
+  }
+  
+  .pic-container {
+    text-align: left;
+    padding: 5px;
+    margin-inline-start: 6px;
+    margin-right: 100px;
+    display: inline-block;
+  }
+  
+  .item-text2 {
+    max-width: 275px !important;
+    white-space: normal; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    display: block; 
+  }
+  
+  .pic-container a,
+  .image-container a:visited {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .pic-container a:hover,
+  .pic-container a:active {
+    text-decoration: none; 
+  }
