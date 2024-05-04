@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -7,11 +7,20 @@ const LoginBox = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const userCookie = document.cookie.split('; ').find((row) => row.startsWith('email='))?.split('=')[1];
+
   const navigate = useNavigate();
   //Function routes to sign in page
   const signing_up = () => {
     navigate("/~24SP_Jacksonja13/Signup");
   };
+  useEffect (  ()=>{    
+    if(userCookie){
+    navigate("/~24SP_Jacksonja13/home");
+    }
+}, []);
+
   //Function that will set the email and password for the hooks
   const handleChange = (event: { target: { name: any; value: any } }) => {
     const { name, value } = event.target;
@@ -47,7 +56,11 @@ const LoginBox = () => {
         document.cookie = "email=" + data.email;
         document.cookie = "username=" + data.username;
         document.cookie = "bio=" + data.bio;
+<<<<<<< HEAD
 
+=======
+        setUserLoggedIn(true);
+>>>>>>> 71e45f4bac2b79adf1e82d4df898a2542483ba2a
         navigate("/~24SP_Jacksonja13/home");
       } else {
         setLoginError(true);
@@ -112,4 +125,8 @@ const LoginBox = () => {
   );
 };
 
+<<<<<<< HEAD
 export default LoginBox;
+=======
+export default LoginBox;
+>>>>>>> 71e45f4bac2b79adf1e82d4df898a2542483ba2a

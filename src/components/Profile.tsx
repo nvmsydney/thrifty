@@ -1,28 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
+import dog2 from "../assets/dog2.jpg";
 
 interface Post {
   id: number;
-  imageSrc: string;
+  photo: string;
 }
 
-interface ProfileData {
-  username: string;
-  bio: string;
-  avatar: string;
-  posts: Post[];
-  followers: number;
-  following: number;
-}
 
-interface ProfileComponentProps {
-  profileData: ProfileData;
-}
 
-const Profile: React.FC<ProfileComponentProps> = ({ profileData }) => {
+
+const Profile= () => {
   // State to manage follow status
   const [isFollowing, setIsFollowing] = useState(false);
+  const [profilePost, setProfilePost] = useState<Post[]>([]);
 
+  const usernameCookie = document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
+  const bioCookie = document.cookie.split('; ').find((row) => row.startsWith('bio='))?.split('=')[1];
+  
+  useEffect(()=>{
+    const getUserPost  = async () =>{
+    const response = await fetch("https://www.cmsc508.com/~24SP_jacksonja13/API.php", {
+      method:'POST',
+      headers:{"Content-Type" : "applicaton/json"},
+      body: JSON.stringify({
+        action:"GetUserPost",
+        username:usernameCookie,
+      })
+    });
+    const data = await response.json();
+    if (data.success) {
+      const posts = data.post.map((postArray: any[]) => ({
+        id: postArray[0],
+        photo: postArray[1],
+        caption: postArray[2],
+      }));
+      console.log(posts);
+      setProfilePost(posts);
+    }
+  };
+  getUserPost();
+}, []);
+  
   const handleFollowClick = () => {
     setIsFollowing(!isFollowing);
     // handle the follow/unfollow logic, updating a database or sending a request to backend
@@ -30,31 +49,33 @@ const Profile: React.FC<ProfileComponentProps> = ({ profileData }) => {
 
   return (
     <Container>
+      
       <Row className="py-5 profile-header">
         <Col md={3} className="d-flex justify-content-center">
-          <Image src={profileData.avatar} className="avatar2 rounded-circle" />
+          
+          <Image src={dog2} className="avatar rounded-circle" />
         </Col>
         <Col md={9}>
-          <h3>{profileData.username}</h3>
-          <p>{profileData.bio}</p>
+          <h3>{usernameCookie}</h3>
+          <p>{bioCookie}</p>
           <div>
-            <strong>{profileData.posts.length}</strong> posts
+            <strong>{2}</strong> posts
           </div>
           <div>
-            <strong>{profileData.followers}</strong> followers
+            <strong>{100}</strong> followers
           </div>
           <div>
-            <strong>{profileData.following}</strong> following
+            <strong>{30}</strong> following
           </div>
           <Button variant="dark" onClick={handleFollowClick} className="follow-button mt-3">
-            {isFollowing ? "Unfollow" : "Follow"}
+              {isFollowing ? "Unfollow" : "Follow"}
           </Button>
         </Col>
       </Row>
-      <Row className="post-grid">
-        {profileData.posts.map((post) => (
+      <Row key="ub" className="post-grid">
+        {profilePost.map((post) => (
           <Col key={post.id} xs={6} md={4} className="px-2 mb-2">
-            <Image src={post.imageSrc} className="postImage w-100" />
+            <Image key={post.id}src={post.photo} className="postImage w-100" />
           </Col>
         ))}
       </Row>

@@ -14,6 +14,7 @@ const userCookie = document.cookie
 const DirectMessage = () => {
   const [recipient, setRecipient] = useState("");
   const [message, setMessage] = useState("");
+  const [reloadWindow, setReloadWindow] = useState(false);
 
   const handleChange = (event: { target: { name: any; value: any } }) => {
     const { name, value } = event.target;
@@ -24,7 +25,7 @@ const DirectMessage = () => {
       setRecipient(value);
     }
   };
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     try {
       const response = await fetch(
@@ -43,6 +44,7 @@ const DirectMessage = () => {
       const data = await response.json();
       if (data.success) {
         console.log("Message sent");
+        setReloadWindow(true);
         const newMessage = {
           id: Date.now(), 
           usernameGet: userCookie,
@@ -91,7 +93,11 @@ const DirectMessage = () => {
       } catch {}
     };
     getMessage();
+<<<<<<< HEAD
   }, []);
+=======
+  }, [reloadWindow]);
+>>>>>>> 71e45f4bac2b79adf1e82d4df898a2542483ba2a
 
   return (
     <div className="messageOutlay">
@@ -131,4 +137,8 @@ const DirectMessage = () => {
     </div>
   );
 };
+<<<<<<< HEAD
 export default DirectMessage;
+=======
+export default DirectMessage;
+>>>>>>> 71e45f4bac2b79adf1e82d4df898a2542483ba2a
