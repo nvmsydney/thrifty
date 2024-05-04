@@ -8,18 +8,21 @@ const LoginBox = () => {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const userCookie = document.cookie.split('; ').find((row) => row.startsWith('email='))?.split('=')[1];
+  const userCookie = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("email="))
+    ?.split("=")[1];
 
   const navigate = useNavigate();
   //Function routes to sign in page
   const signing_up = () => {
     navigate("/~24SP_Jacksonja13/Signup");
   };
-  useEffect (  ()=>{    
-    if(userCookie){
-    navigate("/~24SP_Jacksonja13/home");
+  useEffect(() => {
+    if (userCookie) {
+      navigate("/~24SP_Jacksonja13/home");
     }
-}, []);
+  }, []);
 
   //Function that will set the email and password for the hooks
   const handleChange = (event: { target: { name: any; value: any } }) => {
@@ -53,9 +56,10 @@ const LoginBox = () => {
 
       if (data.success) {
         //sets the cookie
-        document.cookie = "email=" + data.email;
-        document.cookie = "username=" + data.username;
-        document.cookie = "bio=" + data.bio;
+        document.cookie = "email=" + data.email + "; path=/;"; // Add domain if needed
+        document.cookie = "username=" + data.username + "; path=/;"; // Add domain if needed
+        document.cookie = "bio=" + data.bio + "; path=/;"; // Add domain if needed
+
         setUserLoggedIn(true);
         navigate("/~24SP_Jacksonja13/home");
       } else {

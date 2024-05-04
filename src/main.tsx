@@ -14,8 +14,8 @@ import "./components/css/community.css";
 import "./components/css/profile.css";
 import "./components/css/shoppingcart.css";
 import "./components/css/catalog.css";
-import "./components/css/backgroundVideo.css"
-import "./components/css/directmessage.css"
+import "./components/css/backgroundVideo.css";
+import "./components/css/directmessage.css";
 
 import LoginBox from "./components/LoginBox";
 import HomePage from "./pages/HomePage";
@@ -26,9 +26,9 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import AddPost from "./components/AddPost";
 import SellPage from "./pages/SellPage";
 import ProfilePage from "./pages/ProfilePage";
-import ShoppingCartPage from "./pages/ShoppingCartPage"
-import MensCatalogPage from "./pages/MensCatalogPage"
-import WomensCatalogPage from "./pages/WomensCatalogPage"
+import ShoppingCartPage from "./pages/ShoppingCartPage";
+import MensCatalogPage from "./pages/MensCatalogPage";
+import WomensCatalogPage from "./pages/WomensCatalogPage";
 import DirectMessage from "./components/DirectMessaging";
 
 const router = createBrowserRouter([
@@ -39,14 +39,16 @@ const router = createBrowserRouter([
   { path: "/~24SP_Jacksonja13/view-profile", element: <ProfilePage /> },
   { path: "/~24SP_Jacksonja13/sell", element: <SellPage /> },
   { path: "/~24SP_Jacksonja13/community", element: <CommunityPage /> },
-  { path: "/~24SP_Jacksonja13/men/:productSlug", element: <ProductDetailPage /> },
+  {
+    path: "/~24SP_Jacksonja13/men/:productSlug",
+    element: <ProductDetailPage />,
+  },
   { path: "/~24SP_Jacksonja13/addpost", element: <AddPost /> },
   { path: "/~24SP_Jacksonja13/profile", element: <ProfilePage /> },
   { path: "/~24SP_Jacksonja13/cart", element: <ShoppingCartPage /> },
   { path: "/~24SP_Jacksonja13/men", element: <MensCatalogPage /> },
   { path: "/~24SP_Jacksonja13/women", element: <WomensCatalogPage /> },
-  { path: '/~24SP_Jacksonja13/directmessage', element: <DirectMessage/>}
-
+  { path: "/~24SP_Jacksonja13/directmessage", element: <DirectMessage /> },
 ]);
 
 const rootElement = document.getElementById("root");
