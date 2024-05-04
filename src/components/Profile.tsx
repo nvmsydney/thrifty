@@ -67,8 +67,8 @@ const Profile= () => {
           <div>
             <strong>{30}</strong> following
           </div>
-          <Button variant="dark" onClick={handleFollowClick} className="mt-3">
-            {isFollowing ? "Unfollow" : "Follow"}
+          <Button variant="dark" onClick={handleFollowClick} className="follow-button mt-3">
+              {isFollowing ? "Unfollow" : "Follow"}
           </Button>
         </Col>
       </Row>
