@@ -12,6 +12,7 @@ const userCookie = document.cookie.split('; ').find((row) => row.startsWith('use
 const DirectMessage =() => {
     const [recipient, setRecipient] = useState("");
     const [message, setMessage] = useState("");
+    const [reloadWindow, setReloadWindow] = useState(false);
 
     const handleChange =(event: { target: { name: any; value: any; }; })=> {
         const {name,value} = event.target;
@@ -39,6 +40,7 @@ const handleSubmit = async (event: { preventDefault: () => void; }) => {
     const data = await response.json();
     if(data.success) {
         console.log("True");
+        setReloadWindow(true);
     }
     else{
 
@@ -78,7 +80,7 @@ const handleSubmit = async (event: { preventDefault: () => void; }) => {
                 }
             }
             getMessage();
-    },  []);
+    },  [reloadWindow]);
 
 return(
     <div className="messageOutlay">
