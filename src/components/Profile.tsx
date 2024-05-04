@@ -32,7 +32,7 @@ const Profile: React.FC<ProfileComponentProps> = ({ profileData }) => {
     <Container>
       <Row className="py-5 profile-header">
         <Col md={3} className="d-flex justify-content-center">
-          <Image src={profileData.avatar} className="avatar rounded-circle" />
+          <Image src={profileData.avatar} className="avatar2 rounded-circle" />
         </Col>
         <Col md={9}>
           <h3>{profileData.username}</h3>
@@ -46,7 +46,7 @@ const Profile: React.FC<ProfileComponentProps> = ({ profileData }) => {
           <div>
             <strong>{profileData.following}</strong> following
           </div>
-          <Button variant="dark" onClick={handleFollowClick} className="mt-3">
+          <Button variant="dark" onClick={handleFollowClick} className="follow-button mt-3">
             {isFollowing ? "Unfollow" : "Follow"}
           </Button>
         </Col>

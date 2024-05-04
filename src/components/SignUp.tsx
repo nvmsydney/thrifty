@@ -57,39 +57,81 @@ const SignUp = () => {
             
         }
     };
- return(
-<> 
-    <Container className="mt-3 mb-3">
-		<form onSubmit={handleSubmit}> 
-			<div className="row justify-content-center">
-				<div className="col-4">
-					<div className="form-group">
-						<label>Username:</label>
-						<input type="username" className="form-control" id="username" placeholder="Enter username" name="username" required value = {username} onChange={handleChange}/>
-					</div>
-                    <div className="form-group">
-						<label>email:</label>
-						<input type="email" className="form-control" id="email" placeholder="Enter email" name="email" required value = {email} onChange={handleChange}/>
-					</div>
-                    <div className="form-group">
-						<label>bio:</label>
-						<input type="bio" className="form-control" id="bio" placeholder="What is your bio" name="bio" required value = {bio} onChange={handleChange}/>
-					</div>
-                    <div className="form-group">
-						<label>gender:</label>
-						<input type="gender" className="form-control" id="gender" placeholder="Enter gender" name="gender" required value = {gender} onChange={handleChange}/>
-					</div>
-					<div className="form-group">
-						<label>password:</label>
-						<input type="password" className="form-control" id="password" placeholder="Enter password" name="password" required value = {password} onChange={handleChange}/>
-					</div>
-					<button type="submit" className="btn btn-primary"  >Sign up</button>
-				</div>
-			</div>
-		</form>
-	</Container>
-    </>
-
- );  
-}
-export default SignUp;
+    return (
+      <div className="WholeBackGround">
+        <div className="Container">
+          <form onSubmit={handleSubmit} className="form-container">
+            <h1 className="title pb-2">Thrifty</h1>
+            <div className="form-group">
+              <label className="label">Username</label>
+              <input
+                type="text"
+                className="form-control input mb-2"
+                id="username"
+                placeholder="Enter your username"
+                name="username"
+                required
+                value={username}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label className="label">Email</label>
+              <input
+                type="text"
+                className="form-control input mb-2"
+                id="email"
+                placeholder="Enter your email"
+                name="email"
+                required
+                value={email}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label className="label">Email</label>
+              <input
+                type="text"
+                className="form-control input mb-2"
+                id="bio"
+                placeholder="Enter your bio"
+                name="bio"
+                required
+                value={bio}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label className="label">Gender</label>
+              <input
+                type="text"
+                className="form-control input mb-2"
+                id="gender"
+                placeholder="Enter your gender"
+                name="gender"
+                required
+                value={gender}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label className="label">Password</label>
+              <input
+                type="text"
+                className="form-control input mb-2"
+                id="Password"
+                placeholder="Enter your Password"
+                name="Password"
+                required
+                value={password}
+                onChange={handleChange}
+              />
+            </div>
+            <button type="submit" className="mt-2 btn btn-dark submission">Sign up</button>
+          </form>
+        </div>
+      </div>
+    );
+  };
+  
+  export default SignUp;

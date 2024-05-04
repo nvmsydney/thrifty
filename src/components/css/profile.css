@@ -1,4 +1,3 @@
-/* Profile.css */
 .postImage {
     width: 100%;    
     object-fit: cover; 
@@ -6,12 +5,18 @@
     border-radius: 0;   
   }
   
-  .profile-header .avatar {
+.profile-header .avatar2 {
     width: 250px;
     height: 250px;
-  }
+    object-fit: cover; 
+}
   
-  .post-grid .col {
-    padding: 1px;
-  }
+.post-grid .col {
+  padding: 1px;
+}
   
+.follow-button {
+  max-width: 150px; 
+  display: block;    
+  white-space: nowrap;
+}

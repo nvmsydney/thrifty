@@ -9,13 +9,13 @@ const Sell = () => {
           <Form>
             <Form.Group controlId="formFileMultiple" className="mb-3">
               <Form.Label>Sell Your Item</Form.Label>
-              <Form.Control type="file" multiple />
+              <Form.Control className="input" type="file" multiple />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Title</Form.Label>
               <Form.Control
                 type="text"
-                className="w-100"
+                className="input w-100"
                 placeholder="What clothing item are you selling?"
               />
             </Form.Group>
@@ -25,14 +25,14 @@ const Sell = () => {
                 as="textarea"
                 rows={3}
                 placeholder="Tell us about it!"
-                className="w-100"
+                className="input w-100"
               />
             </Form.Group>
             <Row>
               <Col>
                 <Form.Group className="mb-3">
                   <Form.Label>Gender</Form.Label>
-                  <Form.Control as="select">
+                  <Form.Control as="select" className="input">
                     <option>Gender</option>
                     <option>Women</option>
                     <option>Men</option>
@@ -42,7 +42,7 @@ const Sell = () => {
               <Col>
                 <Form.Group className="mb-3">
                   <Form.Label>Category</Form.Label>
-                  <Form.Control as="select">
+                  <Form.Control as="select" className="input">
                     <option>Select a category</option>
                     <option>Tops</option>
                     <option>Dresses</option>
@@ -58,7 +58,7 @@ const Sell = () => {
               <Col>
                 <Form.Group className="mb-3">
                   <Form.Label>Size</Form.Label>
-                  <Form.Control as="select">
+                  <Form.Control as="select" className="input">
                     <option>Select a size</option>
                     <option>XXS</option>
                     <option>XS</option>
@@ -73,7 +73,7 @@ const Sell = () => {
             </Row>
             <Form.Group className="mb-3">
               <Form.Label>Price</Form.Label>
-              <Form.Control type="text" placeholder="Cost?"  />
+              <Form.Control type="text" className="input" placeholder="Cost?" />
             </Form.Group>
             <Button variant="dark" type="submit">
               Upload

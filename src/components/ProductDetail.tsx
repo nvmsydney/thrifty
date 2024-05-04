@@ -1,25 +1,31 @@
-import { useState } from 'react';
-import { Container, Row, Col, Button, Image } from 'react-bootstrap';
+import { useState } from "react";
+import { Container, Row, Col, Button, Image } from "react-bootstrap";
 import blazer1 from "../assets/blazer1.avif";
 import blazer2 from "../assets/blazer2.avif";
 import blazer3 from "../assets/blazer3.avif";
 import blazer4 from "../assets/blazer4.avif";
 import blazer5 from "../assets/blazer5.avif";
+import userAvatar from "../assets/husky.webp"; // Assume this is the user's avatar
+import DirectMessage from "../components/DirectMessaging"; // Adjust the import path as needed
+import { IoChatbubblesOutline } from "react-icons/io5";
 
 function ProductDetail() {
   const [mainImage, setMainImage] = useState(blazer1);
+  const [showChat, setShowChat] = useState(false); // State to toggle chat window
+
+  const toggleChat = () => setShowChat(!showChat);
   const product = {
-    name: 'The Clinton Blazer',
+    name: "The Clinton Blazer",
     price: 125.0,
     details: {
-      condition: 'Like new',
-      brand: 'Theory',
-      category: 'Men / Outerwear',
-      size: 'XL',
-      posted: '04/15/24',
+      condition: "Like new",
+      brand: "Theory",
+      category: "Men / Outerwear",
+      size: "XL",
+      posted: "04/15/24",
     },
     description:
-      'The ideal warm-weather blazer, our Clinton blazer is easy to wear in a semi-constructed, two-button silhouette with a darted waist for a refined fit. Accented with notch lapels and flap pockets, this iteration is crafted in our breathable and lightweight Good Linen with stretch for all-day comfort.',
+      "The ideal warm-weather blazer, our Clinton blazer is easy to wear in a semi-constructed, two-button silhouette with a darted waist for a refined fit. Accented with notch lapels and flap pockets, this iteration is crafted in our breathable and lightweight Good Linen with stretch for all-day comfort.",
     images: [blazer1, blazer2, blazer3, blazer4, blazer5],
   };
 
@@ -41,12 +47,26 @@ function ProductDetail() {
               />
             ))}
           </div>
+          <div className="d-flex align-items-center mt-3">
+            <Image src={userAvatar} thumbnail className="avatar" />
+            <span className="h4 pt-4">{"nvmSydney"}</span>
+            <IoChatbubblesOutline
+              onClick={toggleChat}
+              className="mt-4"
+              style={{ marginLeft: "10px", cursor: "pointer" }}
+              size="40px"
+            />
+          </div>
         </Col>
         <Col xs={12} md={6}>
           <h2>{product.name}</h2>
           <h3 className="pt-3">${product.price.toFixed(2)}</h3>
-          <Button variant="outline-dark" className="m-1">Add to cart</Button>
-          <Button variant="btn btn-dark" className="m-1">Buy now</Button>
+          <Button variant="outline-dark" className="m-1">
+            Add to cart
+          </Button>
+          <Button variant="btn btn-dark" className="m-1">
+            Buy now
+          </Button>
           <hr />
           <h4>Details</h4>
           <p>Condition: {product.details.condition}</p>
@@ -58,6 +78,7 @@ function ProductDetail() {
           <p>{product.description}</p>
         </Col>
       </Row>
+      {showChat && <DirectMessage />}
     </Container>
   );
 }

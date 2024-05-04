@@ -1,31 +1,54 @@
 .mainImage {
     width: 100%;
     height: auto;
-    margin-bottom: 20px; /* Space between main image and thumbnails */
+    margin-bottom: 20px; 
 }
 
 .thumbnails {
     display: flex;
-    justify-content: start; /* Align items to the start */
-    overflow-x: auto; /* Enable horizontal scrolling */
-    flex-wrap: nowrap; /* Prevent wrapping of items */
+    justify-content: start; 
+    overflow-x: auto; 
+    flex-wrap: nowrap; 
     gap: 10px;
-    margin-top: 10px; /* Optional: adds some space between main image and thumbnails */
+    margin-top: 10px;
 }
 
 .thumbnailImage {
-    flex: 0 0 auto; /* Ensures that thumbnails do not grow or shrink */
-    width: 100px; /* Fixed width for thumbnails */
-    height: auto; /* Maintain aspect ratio */
+    flex: 0 0 auto; 
+    width: 100px; 
+    height: auto; 
     cursor: pointer;
     padding: 3px;
-    border: 1px solid #ccc; /* Adds a border for visual separation */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds shadow for depth */
+    border: 1px solid #ccc; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 
   @media (min-width: 768px) {
     .thumbnailImage {
-        max-width: 10%; /* Smaller max-width for larger screens */
+        max-width: 10%; 
     }
+}
+
+.avatar {
+    margin-top: 40px;
+    width: 100px !important; 
+    height: 100px !important; 
+    object-fit: cover;
+    border-radius: 50%; 
+    margin-right: 10px; 
+    border: none; 
+    box-shadow: none;
+  }
+
+.d-flex.align-items-center {
+    display: flex;
+    align-items: center;
+}
+
+.d-flex.flex-column.justify-content-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    height: 100px;
 }

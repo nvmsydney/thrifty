@@ -14,11 +14,12 @@ import "./components/css/community.css";
 import "./components/css/profile.css";
 import "./components/css/shoppingcart.css";
 import "./components/css/catalog.css";
+import "./components/css/backgroundVideo.css"
 
 import LoginBox from "./components/LoginBox";
 import HomePage from "./pages/HomePage";
 import SignUp from "./components/SignUp";
-import AccountPage from "./pages/AccountPage";
+import EditAccountPage from "./pages/EditAccountPage";
 import CommunityPage from "./pages/CommunityPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import AddPost from "./components/AddPost";
@@ -33,7 +34,8 @@ const router = createBrowserRouter([
   { path: "/~24SP_Jacksonja13", element: <LoginBox /> },
   { path: "/~24SP_Jacksonja13/home", element: <HomePage /> },
   { path: "/~24SP_Jacksonja13/signup", element: <SignUp /> },
-  { path: "/~24SP_Jacksonja13/account", element: <AccountPage /> },
+  { path: "/~24SP_Jacksonja13/edit-profile", element: <EditAccountPage /> },
+  { path: "/~24SP_Jacksonja13/view-profile", element: <ProfilePage /> },
   { path: "/~24SP_Jacksonja13/sell", element: <SellPage /> },
   { path: "/~24SP_Jacksonja13/community", element: <CommunityPage /> },
   { path: "/~24SP_Jacksonja13/men/:productSlug", element: <ProductDetailPage /> },

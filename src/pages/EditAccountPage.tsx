@@ -1,17 +1,17 @@
 import NavBar from "../components/NavBar";
-import Account from "../components/EditAccount";
+import EditAccount from "../components/EditAccount";
 
-function AccountPage() {
+function EditAccountPage() {
     
   return (
     
     <div className="d-flex flex-column h-100">
      <NavBar /> 
-      <Account />
+      <EditAccount />
     </div>
     
     
   );
 }
 
-export default AccountPage;
+export default EditAccountPage;

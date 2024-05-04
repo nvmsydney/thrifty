@@ -1,4 +1,4 @@
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { IoBagOutline } from "react-icons/io5";
 import { LinkContainer } from "react-router-bootstrap";
 
@@ -36,11 +36,14 @@ function NavBar() {
                 <Nav.Link>Sell</Nav.Link>
               </LinkContainer>
             </Nav.Item>
-            <Nav.Item>
-              <LinkContainer to="/~24SP_jacksonja13/account">
-                <Nav.Link>Account</Nav.Link>
+            <NavDropdown title="Account" id="basic-nav-dropdown">
+              <LinkContainer to="/~24SP_jacksonja13/view-profile">
+                <NavDropdown.Item>View Profile</NavDropdown.Item>
               </LinkContainer>
-            </Nav.Item>
+              <LinkContainer to="/~24SP_jacksonja13/edit-profile">
+                <NavDropdown.Item>Edit Profile</NavDropdown.Item>
+              </LinkContainer>
+            </NavDropdown>
             <Nav.Item>
               <LinkContainer to="/~24SP_jacksonja13/cart">
                 <Nav.Link>

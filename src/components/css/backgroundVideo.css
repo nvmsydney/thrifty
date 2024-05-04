@@ -1,13 +1,40 @@
 .videobackground{
-position: absolute;
-width: 100%;
-height: 100%;
-object-fit: cover;
-z-index: -1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
 }
 
+.WholeBackGround {
+    background: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+    height: 100vh;
+    width: 100vw;
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
+}
+
+.title {
+    text-align: center;
+}
 .Container {
-width :100%;
-height: 100%;
-z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    z-index: 1;
+}
+
+.submission {
+    margin-right: 10px;
+}
+
+.label {
+    margin-bottom: 0px;
+}
+
+.input {
+    margin-top: 0px;
 }
