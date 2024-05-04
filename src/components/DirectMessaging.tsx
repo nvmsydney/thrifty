@@ -1,5 +1,4 @@
 import { Button, Card } from "react-bootstrap";
-import "./css/directmessage.css";
 import { Key, useEffect, useState } from "react";
 import { post } from "jquery";
 
@@ -93,11 +92,7 @@ const DirectMessage = () => {
       } catch {}
     };
     getMessage();
-<<<<<<< HEAD
-  }, []);
-=======
   }, [reloadWindow]);
->>>>>>> 71e45f4bac2b79adf1e82d4df898a2542483ba2a
 
   return (
     <div className="messageOutlay">
@@ -137,8 +132,4 @@ const DirectMessage = () => {
     </div>
   );
 };
-<<<<<<< HEAD
 export default DirectMessage;
-=======
-export default DirectMessage;
->>>>>>> 71e45f4bac2b79adf1e82d4df898a2542483ba2a

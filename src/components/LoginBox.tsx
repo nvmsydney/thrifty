@@ -56,11 +56,7 @@ const LoginBox = () => {
         document.cookie = "email=" + data.email;
         document.cookie = "username=" + data.username;
         document.cookie = "bio=" + data.bio;
-<<<<<<< HEAD
-
-=======
         setUserLoggedIn(true);
->>>>>>> 71e45f4bac2b79adf1e82d4df898a2542483ba2a
         navigate("/~24SP_Jacksonja13/home");
       } else {
         setLoginError(true);
@@ -125,8 +121,4 @@ const LoginBox = () => {
   );
 };
 
-<<<<<<< HEAD
 export default LoginBox;
-=======
-export default LoginBox;
->>>>>>> 71e45f4bac2b79adf1e82d4df898a2542483ba2a

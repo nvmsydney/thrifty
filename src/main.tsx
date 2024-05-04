@@ -15,6 +15,7 @@ import "./components/css/profile.css";
 import "./components/css/shoppingcart.css";
 import "./components/css/catalog.css";
 import "./components/css/backgroundVideo.css"
+import "./components/css/directmessage.css"
 
 import LoginBox from "./components/LoginBox";
 import HomePage from "./pages/HomePage";
