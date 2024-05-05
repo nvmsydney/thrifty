@@ -117,11 +117,11 @@ const SignUp = () => {
             <div className="form-group">
               <label className="label">Password</label>
               <input
-                type="text"
+                type="password"
                 className="form-control input mb-2"
-                id="Password"
+                id="password"
                 placeholder="Enter your Password"
-                name="Password"
+                name="password"
                 required
                 value={password}
                 onChange={handleChange}

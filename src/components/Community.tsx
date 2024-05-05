@@ -12,8 +12,11 @@ interface Post {
 const Community = () => {
   const [communityPosts, setCommunityPosts] = useState<Post[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [relaodPage, setReloadPage] = useState(false);
   const [image, setImage] = useState("");
   const [bodyText, setBodyText] = useState("");
+  const userCookie = document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -37,7 +40,7 @@ const Community = () => {
       }
     };
     fetchPosts();
-  }, []);
+  }, [relaodPage]);
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
@@ -56,7 +59,29 @@ const Community = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // send data here?
-    setShowModal(false);
+    try {
+      event.preventDefault();
+      const response = await fetch('https://www.cmsc508.com/~24SP_jacksonja13/API.php', {
+          method:"POST",
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+              action: 'AddPost',
+              username: userCookie,
+              photo_link:image,
+              body_text:bodyText
+          })
+      });
+      const data = await response.json();
+
+      if(data.success){
+        setShowModal(false);
+        setReloadPage(true);
+      }else{
+          
+      }
+      }catch{
+      }
+   
   };
 
   return (
