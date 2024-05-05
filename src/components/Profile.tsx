@@ -13,9 +13,11 @@ interface Post {
 const Profile= () => {
   // State to manage follow status
   const [isFollowing, setIsFollowing] = useState(false);
+  const [profileInfo, setProfileInfo] = useState([]);
   const [profilePost, setProfilePost] = useState<Post[]>([]);
 
   const usernameCookie = document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
+  const emailCookie = document.cookie.split('; ').find((row) => row.startsWith('email='))?.split('=')[1];
   const bioCookie = document.cookie.split('; ').find((row) => row.startsWith('bio='))?.split('=')[1];
   
   useEffect(()=>{
@@ -30,17 +32,19 @@ const Profile= () => {
     });
     const data = await response.json();
     if (data.success) {
-      const posts = data.post.map((postArray: any[]) => ({
-        id: postArray[0],
-        photo: postArray[1],
-        caption: postArray[2],
-      }));
-      console.log(posts);
-      setProfilePost(posts);
+      if (data.profilePostObject) {
+        const profilePostObjects = data.profilePostObject.map((post: any[]) => ({
+          id: post[0],
+          photo: post[1],
+          caption: post[2]
+        }));
+        console.log(profilePostObjects);
+        setProfilePost(profilePostObjects);
+      }
     }
-  };
+  }
   getUserPost();
-}, []);
+  }, []);
   
   const handleFollowClick = () => {
     setIsFollowing(!isFollowing);
@@ -53,7 +57,7 @@ const Profile= () => {
       <Row className="py-5 profile-header">
         <Col md={3} className="d-flex justify-content-center">
           
-          <Image src={dog2} className="avatar2 rounded-circle" />
+          <Image src={dog2} className="avatar rounded-circle" />
         </Col>
         <Col md={9}>
           <h3>{usernameCookie}</h3>
@@ -67,8 +71,8 @@ const Profile= () => {
           <div>
             <strong>{30}</strong> following
           </div>
-          <Button variant="dark" onClick={handleFollowClick} className="follow-button mt-3">
-              {isFollowing ? "Unfollow" : "Follow"}
+          <Button variant="dark" onClick={handleFollowClick} className="mt-3">
+            {isFollowing ? "Unfollow" : "Follow"}
           </Button>
         </Col>
       </Row>

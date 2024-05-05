@@ -20,7 +20,6 @@ const userCookie = document.cookie.split('; ').find((row) => row.startsWith('use
         if(file){
             reader.readAsDataURL(file);
         }
-
     }
 
     const handleChange = (event: { target: {name: any; value: any; }; }) => {

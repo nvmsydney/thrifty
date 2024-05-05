@@ -28,7 +28,7 @@ const SignUp = () => {
 
     const handleSubmit = async (event: { preventDefault: () => void; }) =>{
         event.preventDefault();
-        
+        const passwordencode = btoa(password);
         try{
             const respone = await fetch('https://www.cmsc508.com/~24SP_jacksonja13/API.php', {
                 method: "POST",
@@ -40,7 +40,7 @@ const SignUp = () => {
                     email: email,
                     bio: bio,
                     gender: gender,
-                    password: password
+                    password: passwordencode
                 })
 
             });

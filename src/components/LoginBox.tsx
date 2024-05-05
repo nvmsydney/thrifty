@@ -36,7 +36,7 @@ const LoginBox = () => {
   //Function sends the data to PHP server in a json to log in
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-
+    const encodedPass = btoa(password);
     try {
       const response = await fetch(
         "https://www.cmsc508.com/~24SP_jacksonja13/server.php",
@@ -47,7 +47,7 @@ const LoginBox = () => {
           },
           body: JSON.stringify({
             email: email,
-            password: password,
+            password: encodedPass,
           }),
         }
       );
@@ -59,6 +59,7 @@ const LoginBox = () => {
         document.cookie = "email=" + data.email + "; path=/;"; // Add domain if needed
         document.cookie = "username=" + data.username + "; path=/;"; // Add domain if needed
         document.cookie = "bio=" + data.bio + "; path=/;"; // Add domain if needed
+        document.cookie = "profilePic=" + data.profilePic;
 
         setUserLoggedIn(true);
         navigate("/~24SP_Jacksonja13/home");
