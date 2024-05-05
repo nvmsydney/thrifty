@@ -19,7 +19,7 @@ const HomeWomenswear = () => {
           action: "GetWomensClothing",
         };
 
-        const response = await fetch("http://localhost/thrifty/API.php", {
+        const response = await fetch("https://www.cmsc508.com/~24SP_jacksonja13/API.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

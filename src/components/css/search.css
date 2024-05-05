@@ -1,0 +1,10 @@
+.avatar3 {
+    height: 55px;
+    width: 55px;
+    object-fit: cover; 
+}
+
+.hover-highlight:hover {
+    background-color: #f4f9ff;
+    cursor: pointer;
+  }
