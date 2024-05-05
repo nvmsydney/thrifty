@@ -1,148 +1,90 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
-  Container,
-  Row,
-  Col,
-  Image,
-  ButtonGroup,
-  Button,
+  Container, Row, Col, Image, ButtonGroup, Button
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import women1 from "../assets/women1.avif";
-import women2 from "../assets/women2.avif";
-import women3 from "../assets/women3.avif";
-import women4 from "../assets/women4.avif";
-import women5 from "../assets/women5.avif";
-import women6 from "../assets/women6.avif";
+import axios from "axios";
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   image: string;
-  slug: string;
   category: string;
 }
 
-const products: Product[] = [
-  {
-    id: 1,
-    name: "Wide-Leg Pant in Good Linen",
-    image: women1,
-    slug: "linen-pant",
-    category: "Bottoms",
-  },
-  {
-    id: 2,
-    name: "Rolled Sleeve Blazer in Good Linen",
-    image: women2,
-    slug: "blazer",
-    category: "Outerwear",
-  },
-  {
-    id: 3,
-    name: "V-Neck Volume Dress in Good Linen",
-    image: women3,
-    slug: "v-dress",
-    category: "Dresses",
-  },
-  {
-    id: 4,
-    name: "Sleeveless Polo in Basket Weave Linen",
-    image: women4,
-    slug: "polo-linen",
-    category: "Shirts",
-  },
-  {
-    id: 5,
-    name: "Jacket",
-    image: women5,
-    slug: "irving-shirt",
-    category: "Outerwear",
-  },
-  {
-    id: 6,
-    name: "Silky Dress",
-    image: women6,
-    slug: "silk-dress",
-    category: "Dresses",
-  },
-];
-
 const WomensCatalog = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const postData = {
+          action: "GetWomensClothing",
+        };
+
+        const response = await axios({
+          method: "post",
+          url: "http://localhost/thrifty/API.php",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify(postData),
+        });
+        if (response.data && response.data.success) {
+          const validProducts: Product[] = response.data.products
+            .filter(
+              (product: any) =>
+                product.category && product.category !== "Unknown"
+            )
+            .map((product: any) => ({
+              id: product.clothes_id,
+              name: product.body_text,
+              image: product.photo_link,
+              category: product.category,
+            }));
+          setProducts(validProducts);
+          const uniqueCategories = Array.from(
+            new Set(validProducts.map((p) => p.category))
+          );
+          setCategories(uniqueCategories);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const filterProducts = (category: string) => {
     setActiveCategory(category);
   };
 
-  const filteredProducts =
-    activeCategory === "All"
-      ? products
-      : products.filter((product) => product.category === activeCategory);
+  const filteredProducts = products.filter(product =>
+    activeCategory === "All" || product.category === activeCategory
+  );
 
   return (
     <Container className="my-3">
       <Row>
         <h3 className="text-start pt-4">Women's Products</h3>
         <ButtonGroup className="mb-3">
-          <Button variant="outline-dark" onClick={() => filterProducts("All")}>
-            All
-          </Button>
-          <Button variant="outline-dark" onClick={() => filterProducts("Tops")}>
-            Tops
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Dresses")}
-          >
-            Dresses
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Bottoms")}
-          >
-            Bottoms
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Outerwear")}
-          >
-            Outerwear
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Headwear")}
-          >
-            Headwear
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Shoes")}
-          >
-            Shoes
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Accessories")}
-          >
-            Accessories
-          </Button>
-          <Button variant="outline-dark" onClick={() => filterProducts("Bags")}>
-            Bags
-          </Button>
+          <Button variant="outline-dark" onClick={() => filterProducts("All")}>All</Button>
+          {categories.map(category => (
+            <Button key={category}
+                    variant="outline-dark"
+                    onClick={() => filterProducts(category)}>
+              {category}
+            </Button>
+          ))}
         </ButtonGroup>
       </Row>
       <Row>
         {filteredProducts.map((product) => (
-          <Col
-            key={product.id}
-            xs={6}
-            sm={4}
-            md={3}
-            lg={2}
-            className="pic-container"
-          >
-            <Link to={`/women/${product.slug}`}>
+          <Col key={product.id} xs={6} sm={4} md={3} lg={2} className="pic-container">
+            <Link to={`/women/${product.id}`}>
               <Image src={product.image} className="pic-icon" />
               <p className="item-text2">{product.name}</p>
             </Link>

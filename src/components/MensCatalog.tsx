@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Row,
@@ -8,61 +8,68 @@ import {
   Button,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import men1 from "../assets/men1.jpg";
-import men2 from "../assets/men2.jpg";
-import men3 from "../assets/men3.jpg";
-import men4 from "../assets/men4.jpg";
-import men5 from "../assets/men5.jpg";
+import axios from "axios";
 
-const products = [
-  {
-    id: 1,
-    name: "Goris Polo Shirt in Light Bilen",
-    image: men1,
-    slug: "goris-polo-shirt",
-    category: "Shirts",
-  },
-  {
-    id: 2,
-    name: "Zaine Pant in Organic Cotton",
-    image: men2,
-    slug: "zaine-pant",
-    category: "Bottoms",
-  },
-  {
-    id: 3,
-    name: "Cable Knit Polo in Cotton",
-    image: men3,
-    slug: "cable-knit-polo",
-    category: "Shirts",
-  },
-  {
-    id: 4,
-    name: "Additional Product 4",
-    image: men4,
-    slug: "product-4",
-    category: "Accessories",
-  },
-  {
-    id: 5,
-    name: "Additional Product 5",
-    image: men5,
-    slug: "product-5",
-    category: "Headwear",
-  },
-];
+interface Product {
+  id: string;
+  name: string;
+  image: string;
+  category: string;
+}
 
 const MensCatalog = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [categories, setCategories] = useState<string[]>([]);
 
-  const filterProducts = (category) => {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const postData = {
+          action: "GetMensClothing",
+        };
+
+        const response = await axios({
+          method: "post",
+          url: "http://localhost/thrifty/API.php",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: JSON.stringify(postData),
+        });
+        if (response.data && response.data.success) {
+          const validProducts: Product[] = response.data.products
+            .filter(
+              (product: any) =>
+                product.category && product.category !== "Unknown"
+            )
+            .map((product: any) => ({
+              id: product.clothes_id,
+              name: product.body_text,
+              image: product.photo_link,
+              category: product.category,
+            }));
+          setProducts(validProducts);
+          const uniqueCategories = Array.from(
+            new Set(validProducts.map((p) => p.category))
+          );
+          setCategories(uniqueCategories);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const filterProducts = (category: string) => {
     setActiveCategory(category);
   };
 
-  const filteredProducts =
-    activeCategory === "All"
-      ? products
-      : products.filter((product) => product.category === activeCategory);
+  const filteredProducts = products.filter(
+    (product) => activeCategory === "All" || product.category === activeCategory
+  );
 
   return (
     <Container className="my-3">
@@ -72,48 +79,15 @@ const MensCatalog = () => {
           <Button variant="outline-dark" onClick={() => filterProducts("All")}>
             All
           </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Tops")}
-          >
-            Tops
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Bottoms")}
-          >
-            Bottoms
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Outerwear")}
-          >
-            Outerwear
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Headwear")}
-          >
-            Headwear
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Shoes")}
-          >
-            Shoes
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Accessories")}
-          >
-            Accessories
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => filterProducts("Bags")}
-          >
-            Bags
-          </Button>
+          {categories.map((category) => (
+            <Button
+              key={category}
+              variant="outline-dark"
+              onClick={() => filterProducts(category)}
+            >
+              {category}
+            </Button>
+          ))}
         </ButtonGroup>
       </Row>
       <Row>
@@ -126,7 +100,7 @@ const MensCatalog = () => {
             lg={2}
             className="pic-container"
           >
-            <Link to={`/men/${product.slug}`}>
+            <Link to={`/men/${product.id}`}>
               <Image src={product.image} className="pic-icon" />
               <p className="item-text2">{product.name}</p>
             </Link>
