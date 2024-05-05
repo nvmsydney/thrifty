@@ -89,7 +89,7 @@ const SignUp = () => {
               />
             </div>
             <div className="form-group">
-              <label className="label">Email</label>
+              <label className="label">Bio</label>
               <input
                 type="text"
                 className="form-control input mb-2"
