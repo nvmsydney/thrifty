@@ -1,20 +1,60 @@
 import { Container, Row, Col, Image } from "react-bootstrap";
-import { Link } from 'react-router-dom';
-import men1 from "../assets/men1.jpg";
-import men2 from "../assets/men2.jpg";
-import men3 from "../assets/men3.jpg";
-import men4 from "../assets/men4.jpg";
-import men5 from "../assets/men5.jpg";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-const products = [
-  { id: 1, name: 'The Clinton Blazer', image: men1, slug: 'clinton-blazer' },
-  { id: 2, name: 'Bron Long Jacket', image: men2, slug: 'bron-long-jacket' },
-  { id: 3, name: 'Curtis Full Suit', image: men3, slug: 'curtis-full-suit' },
-  { id: 4, name: 'Curtis Drawstring Pant in Good Linen', image: men4, slug: 'curtis-drawstring-pant' },
-  { id: 5, name: 'The Irving Shirt', image: men5, slug: 'irving-shirt' },
-];
+interface Product {
+  id: string;
+  title: string;
+  image: string;
+  category: string;
+}
 
 const HomeMenswear = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const postData = {
+          action: "GetMensClothing",
+        };
+
+        const response = await fetch("http://localhost/thrifty/API.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data && data.success) {
+          const validProducts: Product[] = data.products
+            .filter(
+              (product: any) =>
+                product.category && product.category !== "Unknown"
+            )
+            .map((product: any) => ({
+              id: product.clothes_id,
+              title: product.selling_title,
+              image: product.photo_link,
+              category: product.category,
+            }));
+          setProducts(validProducts);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <Container className="my-3">
       <Row>
@@ -23,9 +63,9 @@ const HomeMenswear = () => {
       <div className="scrollable-row">
         {products.map((product) => (
           <Col key={product.id} className="image-container">
-            <Link to={`/~24SP_jacksonja13/men/${product.slug}`}>
+            <Link to={`/~24SP_jacksonja13/men/${product.id}`}>
               <Image src={product.image} className="image-icon" />
-              <p className="item-text">{product.name}</p>
+              <p className="item-text">{product.title}</p>
             </Link>
           </Col>
         ))}

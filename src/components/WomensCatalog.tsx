@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
 import {
-  Container, Row, Col, Image, ButtonGroup, Button
+  Container,
+  Row,
+  Col,
+  Image,
+  ButtonGroup,
+  Button,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 interface Product {
   id: string;
-  name: string;
+  title: string;
   image: string;
   category: string;
 }
@@ -16,7 +20,6 @@ const WomensCatalog = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [categories, setCategories] = useState<string[]>([]);
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -24,23 +27,29 @@ const WomensCatalog = () => {
           action: "GetWomensClothing",
         };
 
-        const response = await axios({
-          method: "post",
-          url: "http://localhost/thrifty/API.php",
+        const response = await fetch("http://localhost/thrifty/API.php", {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          data: JSON.stringify(postData),
+          body: JSON.stringify(postData),
         });
-        if (response.data && response.data.success) {
-          const validProducts: Product[] = response.data.products
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data && data.success) {
+          const validProducts: Product[] = data.products
             .filter(
               (product: any) =>
                 product.category && product.category !== "Unknown"
             )
             .map((product: any) => ({
               id: product.clothes_id,
-              name: product.body_text,
+              title: product.selling_title,
               image: product.photo_link,
               category: product.category,
             }));
@@ -62,8 +71,8 @@ const WomensCatalog = () => {
     setActiveCategory(category);
   };
 
-  const filteredProducts = products.filter(product =>
-    activeCategory === "All" || product.category === activeCategory
+  const filteredProducts = products.filter(
+    (product) => activeCategory === "All" || product.category === activeCategory
   );
 
   return (
@@ -71,11 +80,15 @@ const WomensCatalog = () => {
       <Row>
         <h3 className="text-start pt-4">Women's Products</h3>
         <ButtonGroup className="mb-3">
-          <Button variant="outline-dark" onClick={() => filterProducts("All")}>All</Button>
-          {categories.map(category => (
-            <Button key={category}
-                    variant="outline-dark"
-                    onClick={() => filterProducts(category)}>
+          <Button variant="outline-dark" onClick={() => filterProducts("All")}>
+            All
+          </Button>
+          {categories.map((category) => (
+            <Button
+              key={category}
+              variant="outline-dark"
+              onClick={() => filterProducts(category)}
+            >
               {category}
             </Button>
           ))}
@@ -83,10 +96,17 @@ const WomensCatalog = () => {
       </Row>
       <Row>
         {filteredProducts.map((product) => (
-          <Col key={product.id} xs={6} sm={4} md={3} lg={2} className="pic-container">
+          <Col
+            key={product.id}
+            xs={6}
+            sm={4}
+            md={3}
+            lg={2}
+            className="pic-container"
+          >
             <Link to={`/women/${product.id}`}>
               <Image src={product.image} className="pic-icon" />
-              <p className="item-text2">{product.name}</p>
+              <p className="item-text2">{product.title}</p>
             </Link>
           </Col>
         ))}

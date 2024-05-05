@@ -8,11 +8,10 @@ import {
   Button,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 interface Product {
   id: string;
-  name: string;
+  title: string;
   image: string;
   category: string;
 }
@@ -29,23 +28,29 @@ const MensCatalog = () => {
           action: "GetMensClothing",
         };
 
-        const response = await axios({
-          method: "post",
-          url: "http://localhost/thrifty/API.php",
+        const response = await fetch("http://localhost/thrifty/API.php", {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          data: JSON.stringify(postData),
+          body: JSON.stringify(postData),
         });
-        if (response.data && response.data.success) {
-          const validProducts: Product[] = response.data.products
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data && data.success) {
+          const validProducts: Product[] = data.products
             .filter(
               (product: any) =>
                 product.category && product.category !== "Unknown"
             )
             .map((product: any) => ({
               id: product.clothes_id,
-              name: product.body_text,
+              title: product.selling_title,
               image: product.photo_link,
               category: product.category,
             }));
@@ -102,7 +107,7 @@ const MensCatalog = () => {
           >
             <Link to={`/men/${product.id}`}>
               <Image src={product.image} className="pic-icon" />
-              <p className="item-text2">{product.name}</p>
+              <p className="item-text2">{product.title}</p>
             </Link>
           </Col>
         ))}

@@ -1,22 +1,60 @@
 import { Container, Row, Col, Image } from "react-bootstrap";
-import { Link } from 'react-router-dom';
-import women1 from "../assets/women1.avif";
-import women2 from "../assets/women2.avif";
-import women3 from "../assets/women3.avif";
-import women4 from "../assets/women4.avif";
-import women5 from "../assets/women5.avif";
-import women6 from "../assets/women6.avif";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-const products = [
-  { id: 1, name: 'Wide-Leg Pant in Good Linen', image: women1, slug: 'wide-leg-pant' },
-  { id: 2, name: 'Rolled Sleeve Blazer in Good Linen', image: women2, slug: 'blazer-good-linen' },
-  { id: 3, name: 'V-Neck Volume Dress in Good Linen', image: women3, slug: 'dress-good-linen' },
-  { id: 4, name: 'Sleeveless Polo in Basket Weave Linen', image: women4, slug: 'polo-linen' },
-  { id: 5, name: 'Jacket', image: women5, slug: 'irving-shirt' },
-  { id: 6, name: 'Silky Dress', image: women6, slug: 'silk-dress' },
-];
+interface Product {
+  id: string;
+  title: string;
+  image: string;
+  category: string;
+}
 
 const HomeWomenswear = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const postData = {
+          action: "GetWomensClothing",
+        };
+
+        const response = await fetch("http://localhost/thrifty/API.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data && data.success) {
+          const validProducts: Product[] = data.products
+            .filter(
+              (product: any) =>
+                product.category && product.category !== "Unknown"
+            )
+            .map((product: any) => ({
+              id: product.clothes_id,
+              title: product.selling_title,
+              image: product.photo_link,
+              category: product.category,
+            }));
+          setProducts(validProducts);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <Container className="my-3">
       <Row>
@@ -25,9 +63,9 @@ const HomeWomenswear = () => {
       <div className="scrollable-row">
         {products.map((product) => (
           <Col key={product.id} className="image-container">
-            <Link to={`/women/${product.slug}`}>
+            <Link to={`/~24SP_jacksonja13/women/${product.id}`}>
               <Image src={product.image} className="image-icon" />
-              <p className="item-text">{product.name}</p>
+              <p className="item-text">{product.title}</p>
             </Link>
           </Col>
         ))}
