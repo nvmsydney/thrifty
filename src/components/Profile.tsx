@@ -57,11 +57,7 @@ const Profile= () => {
       <Row className="py-5 profile-header">
         <Col md={3} className="d-flex justify-content-center">
           
-<<<<<<< Updated upstream
-          <Image src={dog2} className="avatar2 rounded-circle" />
-=======
-          <Image src={profilePic} className="avatar rounded-circle" />
->>>>>>> Stashed changes
+          <Image src={profilePic} className="avatar2 rounded-circle" />
         </Col>
         <Col md={9}>
           <h3>{usernameCookie}</h3>
