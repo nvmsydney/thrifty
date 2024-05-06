@@ -1,6 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 import { Key, useEffect, useState } from "react";
-import { post } from "jquery";
+import SearchBar from "./SearchBar";
+
 
 interface item {
   id: number;
@@ -95,7 +96,7 @@ const DirectMessage = () => {
   }, [reloadWindow]);
 
   return (
-    <div className="messageOutlay">
+    <><SearchBar / ><div className="messageOutlay">
       <Card>
         <Card.Body>
           <label className="prompt">Who do you want to send this to?</label>
@@ -129,7 +130,7 @@ const DirectMessage = () => {
           <Button variant="btn btn-dark" className="buttons2" onClick={handleSubmit}>Send</Button>
         </div>
       </Card>
-    </div>
+    </div></>
   );
 };
 export default DirectMessage;

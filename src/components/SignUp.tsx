@@ -31,7 +31,7 @@ const SignUp = () => {
     event.preventDefault();
     const passwordencode = btoa(password);
     try {
-      const respone = await fetch("http://localhost/thrifty/API.php", {
+      const respone = await fetch("https://www.cmsc508.com/~24SP_jacksonja13/API.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
