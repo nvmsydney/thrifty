@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import userAvatar from "../assets/husky.webp"; // Assume this is the user's avatar
 import DirectMessage from "../components/DirectMessaging"; // Adjust the import path as needed
 import { IoChatbubblesOutline } from "react-icons/io5";
-import stare from "../assets/stare.png";
 
 interface Product {
   clothes_id: string;
@@ -31,7 +30,7 @@ const defaultProduct: Product = {
   clothes_id: "",
   gender: "",
   original_body_text: null,
-  photo_link: stare,
+  photo_link: blazer1,
   username: "",
   bottom_size: null,
   dress_size: null,
