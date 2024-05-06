@@ -45,6 +45,10 @@ const router = createBrowserRouter([
     path: "/~24SP_Jacksonja13/men/:productSlug",
     element: <ProductDetailPage />,
   },
+  {
+    path: "/~24SP_Jacksonja13/women/:productSlug",
+    element: <ProductDetailPage />,
+  },
   { path: "/~24SP_Jacksonja13/addpost", element: <AddPost /> },
   { path: "/~24SP_Jacksonja13/profile", element: <ProfilePage /> },
   { path: "/~24SP_Jacksonja13/cart", element: <ShoppingCartPage /> },

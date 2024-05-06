@@ -21,7 +21,7 @@ const Community = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch(
-        "https://www.cmsc508.com/~24SP_jacksonja13/API.php",
+        "https://localhost/thrifty/test.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

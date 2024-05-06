@@ -1,8 +1,9 @@
 .scrollable-row {
-    overflow-x: auto;
-    white-space: nowrap; 
-  }
-  
+  display: flex;        
+  flex-wrap: nowrap;    
+  overflow-x: auto;      
+  -webkit-overflow-scrolling: touch;
+}
   .scrollable-row::-webkit-scrollbar {
     display: none;
   }
