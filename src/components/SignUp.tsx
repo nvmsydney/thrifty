@@ -102,16 +102,18 @@ const SignUp = () => {
           </div>
           <div className="form-group">
             <label className="label">Gender</label>
-            <input
-              type="text"
-              className="form-control input mb-2"
+            <select
+              className="form-control input mb-2 w-100"
               id="gender"
-              placeholder="Enter your gender"
               name="gender"
               required
               value={gender}
               onChange={handleChange}
-            />
+            >
+              <option value="">Select Gender</option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+            </select>
           </div>
           <div className="form-group">
             <label className="label">Password</label>
