@@ -7,11 +7,13 @@ import { logoutUser } from "../services/logout";
 
 function NavBar() {
   const navigate = useNavigate();
-  const [userLoggedIn, setUserLoggedIn] = useState(true);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false); // Assume false by default, set true if admin
 
   const handleLogout = () => {
     logoutUser();
     setUserLoggedIn(false);
+    setIsAdmin(false);
     navigate("/~24SP_Jacksonja13/");
   };
 
@@ -41,6 +43,18 @@ function NavBar() {
                 <Nav.Link>Community</Nav.Link>
               </LinkContainer>
             </Nav.Item>
+            <Nav.Item>
+              <LinkContainer to="/~24SP_jacksonja13/searchbar">
+                <Nav.Link>Search</Nav.Link>
+              </LinkContainer>
+            </Nav.Item>
+            {isAdmin && (
+              <Nav.Item>
+                <LinkContainer to="/~24SP_jacksonja13/admin">
+                  <Nav.Link>Admin</Nav.Link>
+                </LinkContainer>
+              </Nav.Item>
+            )}
           </Nav>
           <Nav>
             <Nav.Item>

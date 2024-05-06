@@ -32,6 +32,8 @@ import MensCatalogPage from "./pages/MensCatalogPage";
 import WomensCatalogPage from "./pages/WomensCatalogPage";
 import DirectMessage from "./components/DirectMessaging";
 import SearchBar from "./components/SearchBar";
+import AdminPage from "./pages/AdminPage";
+import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 
 const router = createBrowserRouter([
   { path: "/~24SP_Jacksonja13", element: <LoginBox /> },
@@ -49,20 +51,23 @@ const router = createBrowserRouter([
     path: "/~24SP_Jacksonja13/women/:productSlug",
     element: <ProductDetailPage />,
   },
+  { path: "/~24SP_Jacksonja13/admin", element: <AdminPage /> },
   { path: "/~24SP_Jacksonja13/addpost", element: <AddPost /> },
   { path: "/~24SP_Jacksonja13/profile", element: <ProfilePage /> },
   { path: "/~24SP_Jacksonja13/cart", element: <ShoppingCartPage /> },
   { path: "/~24SP_Jacksonja13/men", element: <MensCatalogPage /> },
   { path: "/~24SP_Jacksonja13/women", element: <WomensCatalogPage /> },
   { path: "/~24SP_Jacksonja13/directmessage", element: <DirectMessage /> },
-  { path: "/~24SP_Jacksonja13/searchbar", element:<SearchBar/>}
+  { path: "/~24SP_Jacksonja13/searchbar", element: <SearchBar /> },
 ]);
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <ShoppingCartProvider>
+        <RouterProvider router={router} />
+      </ShoppingCartProvider>
     </React.StrictMode>
   );
 } else {
