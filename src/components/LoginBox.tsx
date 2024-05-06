@@ -56,10 +56,11 @@ const LoginBox = () => {
 
       if (data.success) {
         //sets the cookie
-        document.cookie = "email=" + data.email + "; path=/;"; // Add domain if needed
-        document.cookie = "username=" + data.username + "; path=/;"; // Add domain if needed
-        document.cookie = "bio=" + data.bio + "; path=/;"; // Add domain if needed
-        document.cookie = "profilePic=" + data.profilePic;
+        document.cookie = "email=" + data.email + "; path=/;"; 
+        document.cookie = "username=" + data.username + "; path=/;"; 
+        document.cookie = "bio=" + data.bio + "; path=/;";
+        sessionStorage.setItem('profilePic', data.profilePic);
+        
 
         setUserLoggedIn(true);
         navigate("/~24SP_Jacksonja13/home");
