@@ -33,7 +33,6 @@ import WomensCatalogPage from "./pages/WomensCatalogPage";
 import DirectMessage from "./components/DirectMessaging";
 import SearchBar from "./components/SearchBar";
 import AdminPage from "./pages/AdminPage";
-import { ShoppingCartProvider } from "./context/ShoppingCartContext";
 
 const router = createBrowserRouter([
   { path: "/~24SP_Jacksonja13", element: <LoginBox /> },
@@ -65,9 +64,7 @@ const rootElement = document.getElementById("root");
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      <ShoppingCartProvider>
         <RouterProvider router={router} />
-      </ShoppingCartProvider>
     </React.StrictMode>
   );
 } else {

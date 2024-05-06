@@ -55,7 +55,7 @@ const Sell = () => {
           action:"SellPost",
           username:usernameCookie,
           photo_link:sellPicture,
-          body_text: sellTitle,
+          body_text: sellDiscription,
           gender:sellGender,
           price:sellPrice,
           title: sellTitle,

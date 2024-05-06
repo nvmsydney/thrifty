@@ -1,6 +1,5 @@
 import { Button, Card } from "react-bootstrap";
 import { Key, useEffect, useState } from "react";
-import SearchBar from "./SearchBar";
 
 
 interface item {
@@ -96,7 +95,7 @@ const DirectMessage = () => {
   }, [reloadWindow]);
 
   return (
-    <><SearchBar / ><div className="messageOutlay">
+    <><div className="messageOutlay">
       <Card>
         <Card.Body>
           <label className="prompt">Who do you want to send this to?</label>

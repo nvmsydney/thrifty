@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import { Container, Row, Col, Button, Image, Spinner  } from "react-bootstrap";
 import blazer1 from "../assets/blazer1.avif";
 import { useParams } from "react-router-dom";
-import userAvatar from "../assets/husky.webp"; // Assume this is the user's avatar
-import DirectMessage from "../components/DirectMessaging"; // Adjust the import path as needed
+import userAvatar from "../assets/husky.webp"; 
+import DirectMessage from "../components/DirectMessaging";
 import { IoChatbubblesOutline } from "react-icons/io5";
 
 interface Product {
@@ -50,18 +50,20 @@ function ProductDetail() {
   const [product, setProduct] = useState<Product>(defaultProduct);
   const [mainImage, setMainImage] = useState(blazer1);
   const [showChat, setShowChat] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
 
-  const { productSlug } = useParams(); // This will capture the clothes ID from the URL
+  const { productSlug } = useParams();
 
   useEffect(() => {
     const fetchProduct = async () => {
+      setIsLoading(true); // Start loading
       try {
         const response = await fetch("http://localhost/thrifty/API.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             action: "GetClothingDetails",
-            clothes_id: productSlug, 
+            clothes_id: productSlug,
           }),
         });
         if (!response.ok) {
@@ -77,6 +79,7 @@ function ProductDetail() {
       } catch (error) {
         console.error("Failed to fetch product", error);
       }
+      setIsLoading(false); // Stop loading
     };
     fetchProduct();
   }, [productSlug]);
@@ -96,6 +99,16 @@ function ProductDetail() {
       "Not specified"
     );
   };
+
+  if (isLoading) {
+    return (
+      <Container className="text-center py-5">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </Container>
+    );
+  }
 
   return (
     <Container>
