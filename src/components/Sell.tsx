@@ -117,8 +117,8 @@ const Sell = () => {
                   <Form.Label>Gender</Form.Label>
                   <Form.Control as="select" name="gender" value={sellGender}  className="input" onChange={handleChange}>
                     <option >Gender</option>
-                    <option value="Women">Women</option>
-                    <option value="Men">Men</option>
+                    <option value="male">male</option>
+                    <option value="female">female</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
