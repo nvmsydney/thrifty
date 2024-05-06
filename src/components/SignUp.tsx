@@ -111,8 +111,8 @@ const SignUp = () => {
               onChange={handleChange}
             >
               <option value="">Select Gender</option>
-              <option value="female">Female</option>
-              <option value="male">Male</option>
+              <option value="female">female</option>
+              <option value="male">male</option>
             </select>
           </div>
           <div className="form-group">
