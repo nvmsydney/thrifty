@@ -12,18 +12,12 @@ interface Product {
   original_body_text: string | null;
   photo_link: string;
   username: string;
-  bottom_size: string | null;
-  dress_size: string | null;
   is_accessory: string;
-  bag_size: string | null;
-  footwear_size: string | null;
-  headwear_size: string | null;
-  outerwear_size: string | null;
-  top_size: string | null;
   title: string | null;
   selling_text: string | null;
   price: string | null;
   category: string | null;
+  size: string | null; 
 }
 
 const defaultProduct: Product = {
@@ -32,18 +26,12 @@ const defaultProduct: Product = {
   original_body_text: null,
   photo_link: blazer1,
   username: "",
-  bottom_size: null,
-  dress_size: null,
   is_accessory: "",
-  bag_size: null,
-  footwear_size: null,
-  headwear_size: null,
-  outerwear_size: null,
-  top_size: null,
   title: "Untitled Product",
   selling_text: "No description available",
   price: "0",
   category: "Uncategorized",
+  size: "S",
 };
 
 function ProductDetail() {
@@ -58,7 +46,7 @@ function ProductDetail() {
     const fetchProduct = async () => {
       setIsLoading(true); // Start loading
       try {
-        const response = await fetch("http://localhost/thrifty/API.php", {
+        const response = await fetch("https://www.cmsc508.com/~24SP_jacksonja13/API.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -87,17 +75,7 @@ function ProductDetail() {
   const toggleChat = () => setShowChat(!showChat);
 
   const getSize = (product: Product) => {
-    if (!product) return "Not specified";
-    return (
-      product.bottom_size ||
-      product.dress_size ||
-      product.bag_size ||
-      product.footwear_size ||
-      product.headwear_size ||
-      product.outerwear_size ||
-      product.top_size ||
-      "Not specified"
-    );
+    return product.size || "Not specified";
   };
 
   if (isLoading) {
