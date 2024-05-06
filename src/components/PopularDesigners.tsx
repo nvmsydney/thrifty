@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Image } from "react-bootstrap";
-import stare from "../assets/stare.png"
 
 interface User {
   username: string,
@@ -54,7 +53,7 @@ const DesignerIcons = () => {
         {users.map((user) => (
           <Image
             key={user.username}
-            src={user.prof_pic || stare}
+            src={user.prof_pic}
             className="designer-icon rounded-circle"
           />
         ))}
