@@ -48,6 +48,7 @@ const Sell = () => {
 
   const handleSumbit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    console.log("Category selected:", sellCategory); // Log the category to the console
     try {
       const response = await fetch(
         "https://www.cmsc508.com/~24SP_jacksonja13/API.php",

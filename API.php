@@ -509,7 +509,6 @@ function SellPost(){
             // Get the post_id of the inserted post
             $post_id = $conn->lastInsertId();
 
-                
             // Insert into selling_clothes_post table
             $stmt=$conn->prepare(
                 "INSERT INTO selling_clothes_post (post_id, body_text, title) VALUES (:post_id, :body_text, :title)");
@@ -524,19 +523,21 @@ function SellPost(){
             $stmt->bindValue(':post_id', $post_id);
             $stmt->execute();
 
-            $clothes_id = $conn->lastInsertId();
-
-            $valid_categories = ['tops', 'dresses', 'bottoms', 'outerwear', 'headwear', 'shoes', 'accessories', 'bags'];
+            // Fetch the clothes_id based on post_id
+            $stmt = $conn->prepare("SELECT clothes_id FROM clothes WHERE post_id = :post_id");
+            $stmt->bindValue(':post_id', $post_id);
+            $stmt->execute();
+            $clothes_result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $clothes_id = $clothes_result['clothes_id'];
 
             // Fetch the category from packet_data and check if it is valid
-            $category = $packet_data['category'];
+            $category = strtolower($packet_data['category']);
 
-            if ($category == 'bottoms') {
-                $stmt = $conn->prepare("INSERT INTO bottoms (clothes_id, size) VALUES (:clothes_id, :size)");
-                $stmt->bindValue(':clothes_id', $clothes_id);
-                $stmt->bindValue(':size', $packet_data['size']); // Ensure that 'size' is provided
-                $stmt->execute();
-            }
+            // Example of inserting into the bottoms table, replace with dynamic category handling if needed
+            $stmt = $conn->prepare("INSERT INTO $category (clothes_id, size) VALUES (:clothes_id, :size)");
+            $stmt->bindValue(':clothes_id', $clothes_id);
+            $stmt->bindValue(':size', $packet_data['size']); // Ensure that 'size' is provided
+            $stmt->execute();
 
             echo json_encode(array('success' => true));
         } catch (PDOException $e){
@@ -545,6 +546,7 @@ function SellPost(){
         }
     }
 }
+
 function DeletePost($clothesId) {
     $pdo = getDB();
 
