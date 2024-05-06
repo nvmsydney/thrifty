@@ -55,11 +55,6 @@ const SearchBar = () => {
               key={post.id}
               className="list-group-item d-flex align-items-center hover-highlight"
             >
-              <img
-                src={blazer1}
-                alt=""
-                className="rounded-circle me-2 avatar3"
-              />
               {post.id}
             </li>
           ))}
