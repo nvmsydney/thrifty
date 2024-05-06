@@ -3,6 +3,7 @@ import { Container, Card, Button, Modal, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 interface Post {
+  profilePic: string | undefined;
   id: number;
   username: string;
   caption: string;
@@ -33,7 +34,7 @@ const Community = () => {
         const posts = data.post.map((postArray: any[][]) => ({
           id: postArray[0][0],
           username: postArray[0][1],
-          caption: postArray[0][2],
+          profilePic: postArray[0][2],
           imageSrc: postArray[0][3],
         }));
         setCommunityPosts(posts);
@@ -90,7 +91,7 @@ const Community = () => {
         <Card key={post.id} className="postCard">
           <Card.Header className="postHeader">
             <img
-              src={post.imageSrc}
+              src={post.profilePic}
               alt="Avatar"
               className="avatar rounded-circle"
             />
@@ -99,7 +100,7 @@ const Community = () => {
           <Card.Img variant="top" src={post.imageSrc} className="postImage" />
           <Card.Body className="postCaption">
             <Card.Text>
-              <b>{post.username}</b> {post.caption}
+          
             </Card.Text>
           </Card.Body>
         </Card>

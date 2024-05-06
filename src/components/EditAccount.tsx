@@ -1,10 +1,9 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 const userBioCookie = document.cookie.split('; ').find((row) => row.startsWith('bio='))?.split('=')[1];
 const userPicCookie = document.cookie.split('; ').find((row) => row.startsWith('profilePic='))?.split('=')[1];
 const usernameCookie = document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
-
-
+const profilePic = sessionStorage.getItem('profilePic') || ''; 
 const EditAccount = () => {
   const [image, setImage] = useState("");
   const [bio, setBio] = useState<string>(userBioCookie || "");
@@ -19,8 +18,13 @@ const EditAccount = () => {
   const [shoeSize, setShoeSize] = useState<string>("");
   const [bustGirth, setBustGirth] = useState<string>("");
 
+  useEffect(()=>{
+    
+    setImage(profilePic);
+  }, []);
 
-  const handleIamgeChange = (event: ChangeEvent<HTMLInputElement>) => {
+
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files![0];
     const reader = new FileReader();
     reader.onload = () => {
@@ -96,7 +100,7 @@ const handleSubmit = async (event: { preventDefault: () => void; }) =>{
     const data = await response.json();
 
     if(data.success){
-        navigate("/~24SP_Jacksonja13/community");
+      console.log("Sucessful")
     }else{
         
     }
@@ -121,11 +125,13 @@ const handleImageSubmit = async (event: { preventDefault: () => void }) => {
       }
     );
     const data = await response.json();
-    if(data.sucess){
-      document.cookie = `profilePic=${image};`;
+    if(data.success){
+      console.log("deed is done");
+      sessionStorage.removeItem('profilePic');
+      sessionStorage.setItem('profilePic',data.prof_pic);
     }
   } catch {}
-}
+} 
 
   
   return (
@@ -135,8 +141,8 @@ const handleImageSubmit = async (event: { preventDefault: () => void }) => {
           <h2>Account</h2>
           <Form onSubmit={handleImageSubmit}>
             <div className="profile-pic-wrapper mt-4">
-              <Image src={image || userPicCookie} roundedCircle /> 
-              <input type="file" onChange={handleIamgeChange} /> 
+              <Image src={image || profilePic} roundedCircle /> 
+              <input type="file" onChange={handleImageChange} /> 
             </div>
             <Button variant="primary" className="btn btn-dark" type="submit" onSubmit={handleImageSubmit} >
               Upload Profile Picture

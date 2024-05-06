@@ -58,12 +58,21 @@ const Sell = () => {
           body_text: sellTitle,
           gender:sellGender,
           price:sellPrice,
-          title: sellTitle
+          title: sellTitle,
+          category:sellCategory,
+          size:sellSize
         })
         
     });
     const data = await response.json();
     if(data.success){
+      setSellPicture("");
+      setSellDiscription("");
+      setSellTitle("");
+      setGender("");
+      setSellPrice("");
+      setSellSize("");
+      setSellCategory("");
 
     } else {}
     } catch {} 

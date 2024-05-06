@@ -17,7 +17,7 @@ const Profile= () => {
   const [profilePost, setProfilePost] = useState<Post[]>([]);
 
   const usernameCookie = document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
-  const emailCookie = document.cookie.split('; ').find((row) => row.startsWith('email='))?.split('=')[1];
+  const profilePic = sessionStorage.getItem('profilePic') || ''; 
   const bioCookie = document.cookie.split('; ').find((row) => row.startsWith('bio='))?.split('=')[1];
   
   useEffect(()=>{
@@ -57,7 +57,11 @@ const Profile= () => {
       <Row className="py-5 profile-header">
         <Col md={3} className="d-flex justify-content-center">
           
+<<<<<<< Updated upstream
           <Image src={dog2} className="avatar2 rounded-circle" />
+=======
+          <Image src={profilePic} className="avatar rounded-circle" />
+>>>>>>> Stashed changes
         </Col>
         <Col md={9}>
           <h3>{usernameCookie}</h3>
