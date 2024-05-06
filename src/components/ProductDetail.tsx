@@ -102,7 +102,7 @@ function ProductDetail() {
     <Container>
       <Row className="my-4">
         <Col xs={12} md={6}>
-          <Image src={mainImage} alt={product.title || "Product Image"} fluid />
+          <Image src={mainImage} className="mainImage" fluid />
 
           <div className="d-flex align-items-center mt-3">
             <Image src={userAvatar} thumbnail className="avatar" />
