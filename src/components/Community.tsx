@@ -3,7 +3,7 @@ import { Container, Card, Button, Modal, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 interface Post {
-  profilePic: string | undefined;
+  prof_pic: string | undefined;
   id: number;
   username: string;
   caption: string;
@@ -22,7 +22,7 @@ const Community = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch(
-        "https://localhost/thrifty/test.php",
+        "https://www.cmsc508.com/~24SP_jacksonja13/API.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -34,7 +34,7 @@ const Community = () => {
         const posts = data.post.map((postArray: any[][]) => ({
           id: postArray[0][0],
           username: postArray[0][1],
-          profilePic: postArray[0][2],
+          prof_pic: postArray[0][2],
           imageSrc: postArray[0][3],
         }));
         setCommunityPosts(posts);
@@ -91,7 +91,7 @@ const Community = () => {
         <Card key={post.id} className="postCard">
           <Card.Header className="postHeader">
             <img
-              src={post.profilePic}
+              src={post.prof_pic}
               alt="Avatar"
               className="avatar rounded-circle"
             />
