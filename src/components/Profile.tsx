@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col, Image, Button } from "react-bootstrap";
-import dog2 from "../assets/dog2.jpg";
 
 interface Post {
   id: number;
@@ -13,7 +12,7 @@ interface Post {
 const Profile= () => {
   // State to manage follow status
   const [isFollowing, setIsFollowing] = useState(false);
-  const [profileInfo, setProfileInfo] = useState([]);
+  //const [profileInfo, setProfileInfo] = useState([]);
   const [profilePost, setProfilePost] = useState<Post[]>([]);
 
   const usernameCookie = document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];

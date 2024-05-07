@@ -9,6 +9,8 @@ const Sell = () => {
   const [sellPrice, setSellPrice] = useState("");
   const [sellSize, setSellSize] = useState("");
   const [sellCategory, setSellCategory] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // State to store error messages
+
   const usernameCookie = document.cookie
     .split("; ")
     .find((row) => row.startsWith("username="))
@@ -78,10 +80,13 @@ const Sell = () => {
         setSellSize("");
         setSellCategory("");
       } else {
+        console.error("Error:", data.message);
       }
-    } catch {}
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
-
+  
   return (
     <Container>
       <Row className="my-4">

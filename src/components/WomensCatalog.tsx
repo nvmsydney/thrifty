@@ -104,7 +104,7 @@ const WomensCatalog = () => {
             lg={2}
             className="pic-container"
           >
-            <Link to={`/~24SP_jacksonja13/women/${product.id}`}>
+            <Link to={`/women/${product.id}`}>
               <Image src={product.image} className="pic-icon" />
               <p className="item-text2">{product.title}</p>
             </Link>

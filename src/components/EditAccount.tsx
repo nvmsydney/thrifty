@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 const userBioCookie = document.cookie.split('; ').find((row) => row.startsWith('bio='))?.split('=')[1];
-const userPicCookie = document.cookie.split('; ').find((row) => row.startsWith('profilePic='))?.split('=')[1];
 const usernameCookie = document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
 const profilePic = sessionStorage.getItem('profilePic') || ''; 
 const EditAccount = () => {

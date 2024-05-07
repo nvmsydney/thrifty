@@ -7,7 +7,6 @@ const AppPost = () => {
 const [image, setImage] = useState("");
 const [bodyText, setBodyText] = useState("");
 const navigate = useNavigate();
-const info = document.cookie.split(";");
 
 const userCookie = document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
 
@@ -47,7 +46,7 @@ const userCookie = document.cookie.split('; ').find((row) => row.startsWith('use
         const data = await response.json();
 
         if(data.success){
-            navigate("/~24SP_Jacksonja13/community");
+            navigate("/community");
         }else{
             
         }

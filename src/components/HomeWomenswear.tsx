@@ -63,7 +63,7 @@ const HomeWomenswear = () => {
       <div className="scrollable-row">
         {products.map((product) => (
           <Col key={product.id} className="image-container">
-            <Link to={`/~24SP_jacksonja13/women/${product.id}`}>
+            <Link to={`/women/${product.id}`}>
               <Image src={product.image} className="image-icon" />
               <p className="item-text">{product.title}</p>
             </Link>

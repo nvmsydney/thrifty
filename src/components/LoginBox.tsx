@@ -15,11 +15,11 @@ const LoginBox = () => {
   const navigate = useNavigate();
   //Function routes to sign in page
   const signing_up = () => {
-    navigate("/~24SP_Jacksonja13/Signup");
+    navigate("/Signup");
   };
   useEffect(() => {
-    if (userCookie) {
-      navigate("/~24SP_Jacksonja13/home");
+    if (userCookie || userLoggedIn) {
+      navigate("/home");
     }
   }, []);
 
@@ -62,7 +62,7 @@ const LoginBox = () => {
         
 
         setUserLoggedIn(true);
-        navigate("/~24SP_Jacksonja13/home");
+        navigate("/home");
       } else {
         setLoginError(true);
       }

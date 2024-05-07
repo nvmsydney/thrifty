@@ -1,10 +1,10 @@
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Link } from "react-router-dom";
 import look1 from "../assets/look1.webp";
 import look2 from "../assets/look2.webp";
 import look3 from "../assets/look3.webp";
 
-function ShapeExample() {
+function StylePreview() {
   return (
     <Container fluid>
       <Row>
@@ -20,22 +20,22 @@ function ShapeExample() {
                 Light as air, bright as spring: find your next go-anywhere style
                 for the new season.
               </p>
-              <LinkContainer to="/~24SP_jacksonja13/women">
+              <Link to="/women">
                 <Button
                   variant="outline-light"
                   className="square-button button-spacing"
                 >
                   SHOP WOMEN
                 </Button>
-              </LinkContainer>
-              <LinkContainer to="/~24SP_jacksonja13/men">
+              </Link>
+              <Link to="/men">
                 <Button
                   variant="outline-light"
                   className="square-button button-spacing"
                 >
                   SHOP MEN
                 </Button>
-              </LinkContainer>
+              </Link>
             </div>
           </div>
         </Col>
@@ -47,4 +47,4 @@ function ShapeExample() {
   );
 }
 
-export default ShapeExample;
+export default StylePreview;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { Container, Card, Button, Modal, Form } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 
 interface Post {
   prof_pic: string | undefined;
