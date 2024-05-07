@@ -20,7 +20,7 @@ function StylePreview() {
                 Light as air, bright as spring: find your next go-anywhere style
                 for the new season.
               </p>
-              <Link to="/women">
+              <Link to="/~24SP_jacksonja13/women">
                 <Button
                   variant="outline-light"
                   className="square-button button-spacing"
@@ -28,7 +28,7 @@ function StylePreview() {
                   SHOP WOMEN
                 </Button>
               </Link>
-              <Link to="/men">
+              <Link to="/~24SP_jacksonja13/men">
                 <Button
                   variant="outline-light"
                   className="square-button button-spacing"

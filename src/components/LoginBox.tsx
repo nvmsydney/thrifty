@@ -62,7 +62,7 @@ const LoginBox = () => {
         
 
         setUserLoggedIn(true);
-        navigate("/home");
+        navigate("/~24SP_jacksonja13/home");
       } else {
         setLoginError(true);
       }

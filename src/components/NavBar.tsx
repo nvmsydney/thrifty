@@ -14,13 +14,13 @@ function NavBar() {
     logoutUser();
     setUserLoggedIn(false);
     setIsAdmin(false);
-    navigate("/");
+    navigate("/~24SP_jacksonja13");
   };
 
   return (
     <Navbar className="navbar-custom" expand="lg">
       <Container>
-        <LinkContainer to="/home">
+        <LinkContainer to="/~24SP_jacksonja13/home">
           <Navbar.Brand className="navbar-brand-centered navbar-brand">
             Thrifty
           </Navbar.Brand>
@@ -34,23 +34,23 @@ function NavBar() {
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer to="/men">
+              <LinkContainer to="/~24SP_jacksonja13/men">
                 <Nav.Link>Men</Nav.Link>
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer to="/community">
+              <LinkContainer to="/~24SP_jacksonja13/community">
                 <Nav.Link>Community</Nav.Link>
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer to="/searchbar">
+              <LinkContainer to="/~24SP_jacksonja13/searchbar">
                 <Nav.Link>Search</Nav.Link>
               </LinkContainer>
             </Nav.Item>
             { userLoggedIn && isAdmin && (
               <Nav.Item>
-                <LinkContainer to="/admin">
+                <LinkContainer to="/~24SP_jacksonja13/admin">
                   <Nav.Link>Admin</Nav.Link>
                 </LinkContainer>
               </Nav.Item>
@@ -58,15 +58,15 @@ function NavBar() {
           </Nav>
           <Nav>
             <Nav.Item>
-              <LinkContainer to="/sell">
+              <LinkContainer to="/~24SP_jacksonja13/sell">
                 <Nav.Link>Sell</Nav.Link>
               </LinkContainer>
             </Nav.Item>
             <NavDropdown title="Account" id="basic-nav-dropdown">
-              <LinkContainer to="/view-profile">
+              <LinkContainer to="/~24SP_jacksonja13/view-profile">
                 <NavDropdown.Item>View Profile</NavDropdown.Item>
               </LinkContainer>
-              <LinkContainer to="/edit-profile">
+              <LinkContainer to="/~24SP_jacksonja13/edit-profile">
                 <NavDropdown.Item>Edit Profile</NavDropdown.Item>
               </LinkContainer>
               <NavDropdown.Item onClick={handleLogout}>
@@ -74,7 +74,7 @@ function NavBar() {
               </NavDropdown.Item>
             </NavDropdown>
             <Nav.Item>
-              <LinkContainer to="/cart">
+              <LinkContainer to="/~24SP_jacksonja13/cart">
                 <Nav.Link>
                   <IoBagOutline size={25} />
                 </Nav.Link>

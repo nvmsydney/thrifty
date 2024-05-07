@@ -47,7 +47,7 @@ const SignUp = () => {
       const data = await respone.json();
 
       if (data.success) {
-        navigate("/");
+        navigate("/~24SP_jacksonja13");
       } else {
         setError(data.message || "An error occurred. Please try again.");
       }

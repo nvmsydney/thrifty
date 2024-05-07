@@ -35,29 +35,29 @@ import SearchBar from "./components/SearchBar";
 import AdminPage from "./pages/AdminPage";
 
 const router = createBrowserRouter([
-  { path: "/", element: <LoginBox /> },
-  { path: "/home", element: <HomePage /> },
-  { path: "/signup", element: <SignUp /> },
-  { path: "/edit-profile", element: <EditAccountPage /> },
-  { path: "/view-profile", element: <ProfilePage /> },
-  { path: "/sell", element: <SellPage /> },
-  { path: "/community", element: <CommunityPage /> },
+  { path: "/~24SP_jacksonja13/", element: <LoginBox /> },
+  { path: "/~24SP_jacksonja13/home", element: <HomePage /> },
+  { path: "/~24SP_jacksonja13/signup", element: <SignUp /> },
+  { path: "/~24SP_jacksonja13/edit-profile", element: <EditAccountPage /> },
+  { path: "/~24SP_jacksonja13/view-profile", element: <ProfilePage /> },
+  { path: "/~24SP_jacksonja13/sell", element: <SellPage /> },
+  { path: "/~24SP_jacksonja13/community", element: <CommunityPage /> },
   {
-    path: "/men/:productSlug",
+    path: "/~24SP_jacksonja13/men/:productSlug",
     element: <ProductDetailPage />,
   },
   {
-    path: "/women/:productSlug",
+    path: "/~24SP_jacksonja13/women/:productSlug",
     element: <ProductDetailPage />,
   },
-  { path: "/admin", element: <AdminPage /> },
-  { path: "/addpost", element: <AddPost /> },
-  { path: "/profile", element: <ProfilePage /> },
-  { path: "/cart", element: <ShoppingCartPage /> },
-  { path: "/men", element: <MensCatalogPage /> },
-  { path: "/women", element: <WomensCatalogPage /> },
-  { path: "/directmessage", element: <DirectMessage /> },
-  { path: "/searchbar", element: <SearchBar /> },
+  { path: "/~24SP_jacksonja13/admin", element: <AdminPage /> },
+  { path: "/~24SP_jacksonja13/addpost", element: <AddPost /> },
+  { path: "/~24SP_jacksonja13/profile", element: <ProfilePage /> },
+  { path: "/~24SP_jacksonja13/cart", element: <ShoppingCartPage /> },
+  { path: "/~24SP_jacksonja13/men", element: <MensCatalogPage /> },
+  { path: "/~24SP_jacksonja13/women", element: <WomensCatalogPage /> },
+  { path: "/~24SP_jacksonja13/directmessage", element: <DirectMessage /> },
+  { path: "/~24SP_jacksonja13/searchbar", element: <SearchBar /> },
 ]);
 
 const rootElement = document.getElementById("root");

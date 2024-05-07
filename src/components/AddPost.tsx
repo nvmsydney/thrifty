@@ -46,7 +46,7 @@ const userCookie = document.cookie.split('; ').find((row) => row.startsWith('use
         const data = await response.json();
 
         if(data.success){
-            navigate("/community");
+            navigate("/~24SP_jacksonja13/community");
         }else{
             
         }
