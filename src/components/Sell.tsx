@@ -9,7 +9,6 @@ const Sell = () => {
   const [sellPrice, setSellPrice] = useState("");
   const [sellSize, setSellSize] = useState("");
   const [sellCategory, setSellCategory] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // State to store error messages
 
   const usernameCookie = document.cookie
     .split("; ")
