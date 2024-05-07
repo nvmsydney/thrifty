@@ -154,7 +154,7 @@ const Sell = () => {
                   >
                     <option>Select a category</option>
                     <option value="Tops">tops</option>
-                    <option value="Dresses">dress</option>
+                    <option value="Dress">dress</option>
                     <option value="Bottoms">bottoms</option>
                     <option value="Outerwear">outerwear</option>
                     <option value="Headwear">headwear</option>
