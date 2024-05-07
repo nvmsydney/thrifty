@@ -29,7 +29,7 @@ function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Item>
-              <LinkContainer to="/women">
+              <LinkContainer to="/~24SP_jacksonja13/women">
                 <Nav.Link>Women</Nav.Link>
               </LinkContainer>
             </Nav.Item>
