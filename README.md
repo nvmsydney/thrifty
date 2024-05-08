@@ -137,7 +137,7 @@ See the [open issues](https://github.com/nvmsydney/thrifty/issues) for a full li
 <!-- CONTACT -->
 ## Contact
 
-Sydney Nguyen - nguyensydney@pm.me
+Sydney Nguyen - nguyensydney@pm.me<br />
 Jermane Jackson - jacksonja13@vcu.edu
 
 Project Link: [https://github.com/nvmsydney/thrifty](https://github.com/nvmsydney/thrifty)
