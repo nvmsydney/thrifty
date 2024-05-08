@@ -34,7 +34,7 @@ function sign_up() {
             $stmt->bindValue(':email', $packet_data['email']);
             $stmt->bindValue(':bio', $packet_data['bio']);
             $stmt->bindValue(':gender', $packet_data['gender']);
-            $stmt->bindValue(':password', password_hash($packet_data['password'], PASSWORD_DEFAULT));
+            $stmt->bindValue(':password', password_hash(base64_decode($packet_data['password']), PASSWORD_DEFAULT));
             $stmt->execute();
             echo json_encode(['success' => true]);
         } catch (PDOException $e) {
@@ -62,6 +62,13 @@ function AddPost () {
             $stmt->bindValue(':photo_link',$packet_data['photo_link']);
             $stmt->bindValue(':body_text', $packet_data['body_text']);
             $stmt->bindValue(':username', $packet_data['username']);
+            $stmt->execute();
+
+            $post_id = $conn->lastInsertId();
+
+            $stmt=$conn->prepare("INSERT INTO be_real_post (post_id) VALUES (:post_id)");
+            $stmt->bindValue(':post_id', $post_id);
+
             $stmt->execute();
             echo json_encode(array('success' => true));
         } catch (PDOException $e) {
@@ -391,6 +398,62 @@ function GetWomensClothing() {
     }
 }
 
+function SellPost(){
+    try {
+        $conn = getDB();
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
+    } catch (PDOException $e) {
+        // Connection failed
+        echo json_encode(array('success' => false, 'message' => 'Connection failed: ' . $e->getMessage()));
+        exit();
+    }
+    
+    $data = file_get_contents("php://input");
+    $packet_data = json_decode($data, true);
+
+    if(isset($packet_data)){
+        try {
+            $stmt=$conn->prepare(
+                "INSERT INTO post (photo_link, body_text, username) VALUES (:photo_link, :body_text, :username)");
+            $stmt->bindValue(':photo_link', $packet_data['photo_link']);
+            $stmt->bindValue(':body_text', $packet_data['body_text']);
+            $stmt->bindValue(':username', $packet_data['username']);
+            $stmt->execute();
+
+            $post_id = $conn->lastInsertId();
+
+            $stmt=$conn->prepare(
+                "INSERT INTO selling_clothes_post (post_id, body_text, title) VALUES (:post_id, :body_text, :title)");
+            $stmt->bindValue(':post_id', $post_id);
+            $stmt->bindValue(':body_text', $packet_data['body_text']); // Assuming same body text for selling_clothes_post
+            $stmt->bindValue(':title', $packet_data['title']);
+            $stmt->execute();
+
+            $stmt = $conn->prepare("INSERT INTO clothes (gender, post_id) VALUES (:gender, :post_id)");
+            $stmt->bindValue(':gender', $packet_data['gender']);
+            $stmt->bindValue(':post_id', $post_id);
+            $stmt->execute();
+
+            $stmt = $conn->prepare("SELECT clothes_id FROM clothes WHERE post_id = :post_id");
+            $stmt->bindValue(':post_id', $post_id);
+            $stmt->execute();
+            $clothes_result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $clothes_id = $clothes_result['clothes_id'];
+
+            $category = strtolower($packet_data['category']);
+
+            $stmt = $conn->prepare("INSERT INTO $category (clothes_id, size) VALUES (:clothes_id, :size)");
+            $stmt->bindValue(':clothes_id', $clothes_id);
+            $stmt->bindValue(':size', $packet_data['size']);
+            $stmt->execute();
+
+            echo json_encode(array('success' => true));
+        } catch (PDOException $e){
+            echo json_encode(array('success' => false, 'message' => 'Insertion failed: ' . $e->getMessage()));
+            exit();
+        }
+    }
+}
 
 function GetClothingDetails() {
     try {
@@ -482,103 +545,6 @@ function GetUsers() {
     }
 }
 
-
-function SellPost(){
-    try {
-        $conn = getDB();
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
-    } catch (PDOException $e) {
-        // Connection failed
-        echo json_encode(array('success' => false, 'message' => 'Connection failed: ' . $e->getMessage()));
-        exit();
-    }
-    
-    $data = file_get_contents("php://input");
-    $packet_data = json_decode($data, true);
-
-    if(isset($packet_data)){
-        try {
-            // Insert into post table
-            $stmt=$conn->prepare(
-                "INSERT INTO post (photo_link, body_text, username) VALUES (:photo_link, :body_text, :username)");
-            $stmt->bindValue(':photo_link', $packet_data['photo_link']);
-            $stmt->bindValue(':body_text', $packet_data['body_text']);
-            $stmt->bindValue(':username', $packet_data['username']);
-            $stmt->execute();
-
-            // Get the post_id of the inserted post
-            $post_id = $conn->lastInsertId();
-
-            // Insert into selling_clothes_post table
-            $stmt=$conn->prepare(
-                "INSERT INTO selling_clothes_post (post_id, body_text, title) VALUES (:post_id, :body_text, :title)");
-            $stmt->bindValue(':post_id', $post_id);
-            $stmt->bindValue(':body_text', $packet_data['body_text']); // Assuming same body text for selling_clothes_post
-            $stmt->bindValue(':title', $packet_data['title']);
-            $stmt->execute();
-
-            // Insert into clothes table
-            $stmt = $conn->prepare("INSERT INTO clothes (gender, post_id) VALUES (:gender, :post_id)");
-            $stmt->bindValue(':gender', $packet_data['gender']);
-            $stmt->bindValue(':post_id', $post_id);
-            $stmt->execute();
-
-            // Fetch the clothes_id based on post_id
-            $stmt = $conn->prepare("SELECT clothes_id FROM clothes WHERE post_id = :post_id");
-            $stmt->bindValue(':post_id', $post_id);
-            $stmt->execute();
-            $clothes_result = $stmt->fetch(PDO::FETCH_ASSOC);
-            $clothes_id = $clothes_result['clothes_id'];
-
-            // Fetch the category from packet_data and check if it is valid
-            $category = strtolower($packet_data['category']);
-
-            // Example of inserting into the bottoms table, replace with dynamic category handling if needed
-            $stmt = $conn->prepare("INSERT INTO $category (clothes_id, size) VALUES (:clothes_id, :size)");
-            $stmt->bindValue(':clothes_id', $clothes_id);
-            $stmt->bindValue(':size', $packet_data['size']); // Ensure that 'size' is provided
-            $stmt->execute();
-
-            echo json_encode(array('success' => true));
-        } catch (PDOException $e){
-            echo json_encode(array('success' => false, 'message' => 'Insertion failed: ' . $e->getMessage()));
-            exit();
-        }
-    }
-}
-
-function DeletePost($clothesId) {
-    $pdo = getDB();
-
-    try {
-        $pdo->beginTransaction();
-
-        $queries = [
-            "DELETE FROM accessories WHERE clothes_id = :clothes_id",
-            "DELETE FROM bottoms WHERE clothes_id = :clothes_id",
-            "DELETE FROM dress WHERE clothes_id = :clothes_id",
-            "DELETE FROM bags WHERE clothes_id = :clothes_id",
-            "DELETE FROM footwear WHERE clothes_id = :clothes_id",
-            "DELETE FROM headwear WHERE clothes_id = :clothes_id",
-            "DELETE FROM outerwear WHERE clothes_id = :clothes_id",
-            "DELETE FROM tops WHERE clothes_id = :clothes_id",
-            "DELETE FROM clothes WHERE clothes_id = :clothes_id",
-            "DELETE FROM post WHERE post_id IN (SELECT post_id FROM clothes WHERE clothes_id = :clothes_id)"
-        ];
-
-        foreach ($queries as $query) {
-            $stmt = $pdo->prepare($query);
-            $stmt->execute(['clothes_id' => $clothesId]);
-        }
-
-        $pdo->commit();
-        echo json_encode(['success' => true, 'message' => "The item with ID $clothesId has been successfully deleted."]);
-    } catch (Exception $e) {
-        $pdo->rollBack();
-        echo json_encode(['success' => false, 'message' => "Error deleting item: " . $e->getMessage()]);
-    }
-}
-
 // API Action Call
 if(!empty($globalFunctionCall['action']) && $globalFunctionCall['action']== 'SignUp') {
     sign_up();
@@ -610,16 +576,13 @@ if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'G
 if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'GetWomensClothing') {
     GetWomensClothing();
 }
+if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'SellPost') {
+    SellPost();
+}
 if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'GetClothingDetails') {
     GetClothingDetails();
 }
 if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'GetUsers') {
     GetUsers();
-}
-if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'SellPost') {
-    SellPost();
-}
-if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'DeletePost') {
-    DeletePost($clothes_id);
 }
 ?>
