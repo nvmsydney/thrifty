@@ -31,7 +31,7 @@
 <h3 align="center">Thrifty Marketplace</h3>
 
   <p align="center">
-    project_description
+    A marketplace where users can list clothing items for sale and share their outfit of the day.
     <br />
     <a href="https://github.com/nvmsydney/thrifty"><strong>Explore the docs »</strong></a>
     <br />
