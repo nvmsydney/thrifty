@@ -2,14 +2,55 @@ import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { IoBagOutline } from "react-icons/io5";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { logoutUser } from "../services/logout";
 
 function NavBar() {
   const navigate = useNavigate();
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false); // Assume false by default, set true if admin
+  const [isAdmin, setIsAdmin] = useState<boolean | undefined>(undefined);
 
+  useEffect(() => {
+    const usernameCookie = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("username="))
+      ?.split("=")[1];
+
+    const fetchAdminStatus = async () => {
+      try {
+        const response = await fetch(
+          "https://www.cmsc508.com/~24SP_jacksonja13/API.php",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              action: "GetAdminStatus",
+              username: usernameCookie,
+            }),
+          }
+        );
+        const data = await response.json();
+        console.log("API response:", data);
+        if (data.success && data.is_admin) {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
+      } catch (error) {
+        console.error("Failed to fetch admin status:", error);
+        setIsAdmin(false);
+      }
+    };
+
+    fetchAdminStatus();
+  }, []);
+
+  if (isAdmin === undefined) {
+    return <div>Loading... be patient</div>;
+  }
+  
   const handleLogout = () => {
     logoutUser();
     setUserLoggedIn(false);
@@ -43,12 +84,7 @@ function NavBar() {
                 <Nav.Link>Community</Nav.Link>
               </LinkContainer>
             </Nav.Item>
-            <Nav.Item>
-              <LinkContainer to="/~24SP_jacksonja13/searchbar">
-                <Nav.Link>Search</Nav.Link>
-              </LinkContainer>
-            </Nav.Item>
-            { userLoggedIn && isAdmin && (
+            { isAdmin && (
               <Nav.Item>
                 <LinkContainer to="/~24SP_jacksonja13/admin">
                   <Nav.Link>Admin</Nav.Link>
@@ -60,6 +96,11 @@ function NavBar() {
             <Nav.Item>
               <LinkContainer to="/~24SP_jacksonja13/sell">
                 <Nav.Link>Sell</Nav.Link>
+              </LinkContainer>
+            </Nav.Item>
+            <Nav.Item>
+              <LinkContainer to="/~24SP_jacksonja13/searchbar">
+                <Nav.Link>Search</Nav.Link>
               </LinkContainer>
             </Nav.Item>
             <NavDropdown title="Account" id="basic-nav-dropdown">

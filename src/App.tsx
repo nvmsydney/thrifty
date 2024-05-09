@@ -1,5 +1,9 @@
-
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./components/css/navbar.css";
@@ -30,8 +34,9 @@ import ShoppingCartPage from "./pages/ShoppingCartPage";
 import MensCatalogPage from "./pages/MensCatalogPage";
 import WomensCatalogPage from "./pages/WomensCatalogPage";
 import DirectMessage from "./components/DirectMessaging";
-import SearchBar from "./components/SearchBar";
+import SearchPage from "./pages/SearchPage";
 import AdminPage from "./pages/AdminPage";
+import PrivateRoute from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
   { path: "/~24SP_jacksonja13/", element: <LoginBox /> },
@@ -49,19 +54,24 @@ const router = createBrowserRouter([
     path: "/~24SP_jacksonja13/women/:productSlug",
     element: <ProductDetailPage />,
   },
-  { path: "/~24SP_jacksonja13/admin", element: <AdminPage /> },
+  {
+    path: "/~24SP_jacksonja13/admin",
+    element: (
+      <PrivateRoute>
+        <AdminPage />
+      </PrivateRoute>
+    ),
+  },
   { path: "/~24SP_jacksonja13/addpost", element: <AddPost /> },
   { path: "/~24SP_jacksonja13/profile", element: <ProfilePage /> },
   { path: "/~24SP_jacksonja13/cart", element: <ShoppingCartPage /> },
   { path: "/~24SP_jacksonja13/men", element: <MensCatalogPage /> },
   { path: "/~24SP_jacksonja13/women", element: <WomensCatalogPage /> },
   { path: "/~24SP_jacksonja13/directmessage", element: <DirectMessage /> },
-  { path: "/~24SP_jacksonja13/searchbar", element: <SearchBar /> },
+  { path: "/~24SP_jacksonja13/searchbar", element: <SearchPage /> },
 ]);
 function App() {
-  return ( 
-<RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

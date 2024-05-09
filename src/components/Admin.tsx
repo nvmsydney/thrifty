@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import blazer1 from "../assets/blazer1.avif";
 
 interface Post {
-  id: string;
+  username: string;
 }
 
 const Admin = () => {
@@ -30,7 +30,7 @@ const Admin = () => {
       const data = await response.json();
       if (data.success) {
         const posts = data.usernames.map((usernameArray: any[]) => ({
-          id: usernameArray[0],
+          username: usernameArray[0],
         }));
         setUsernameSearch(posts);
       } else {
@@ -49,14 +49,14 @@ const Admin = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "BanUser",
-          userId: userId,
+          username: userId,
         }),
       }
     );
     const data = await response.json();
     if (data.success) {
       console.log("User banned successfully.");
-      setUsernameSearch((prev) => prev.filter((user) => user.id !== userId));
+      setUsernameSearch((prev) => prev.filter((user) => user.username !== userId));
     } else {
       console.error("Failed to ban user:", data.message);
     }
@@ -76,20 +76,16 @@ const Admin = () => {
         <ul className="list-group">
           {usernameSearch.map((post) => (
             <li
-              key={post.id}
+              key={post.username}
               className="list-group-item d-flex justify-content-between align-items-center hover-highlight"
             >
               <div className="d-flex align-items-center">
-                <img
-                  src={blazer1}
-                  alt=""
-                  className="rounded-circle me-2 avatar3"
-                />
-                {post.id}
+
+                {post.username}
               </div>
               <button
                 className="btn btn-danger"
-                onClick={() => handleBan(post.id)}
+                onClick={() => handleBan(post.username)}
               >
                 Ban
               </button>
