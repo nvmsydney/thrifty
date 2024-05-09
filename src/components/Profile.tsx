@@ -52,7 +52,6 @@ const Profile = () => {
         <Col md={9}>
           <h3>{usernameCookie}</h3>
           <p>{decodedBio}</p>
-          <p>{decodedBio}</p>
           <div>
             <strong>{2}</strong> posts
           </div>
