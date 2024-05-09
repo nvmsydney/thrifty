@@ -1,13 +1,22 @@
 import { ChangeEvent, useState } from "react";
 import { Form, Button, Container, Row, Col, Image } from "react-bootstrap";
 
-const userBioCookie = document.cookie.split('; ').find(row => row.startsWith('bio='))?.split('=')[1];
-const usernameCookie = document.cookie.split('; ').find(row => row.startsWith('username='))?.split('=')[1];
-const storedProfilePic = sessionStorage.getItem('profilePic') || ''; 
+const userBioCookie = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("bio="))
+  ?.split("=")[1];
+const decodedBio = userBioCookie ? decodeURIComponent(userBioCookie) : "";
+const usernameCookie = document.cookie
+  .split("; ")
+  .find((row) => row.startsWith("username="))
+  ?.split("=")[1];
+const storedProfilePic = sessionStorage.getItem("profilePic") || "";
 
 const EditAccount = () => {
-  const [image, setImage] = useState(sessionStorage.getItem('profilePic') || '');
-  const [bio, setBio] = useState<string>(userBioCookie || "");
+  const [image, setImage] = useState(
+    sessionStorage.getItem("profilePic") || ""
+  );
+  const [bio, setBio] = useState<string>(decodedBio);
   const [headCircumference, setHeadCircumference] = useState<string>("");
   const [shoulderWidth, setShoulderWidth] = useState<string>("");
   const [neckSize, setNeckSize] = useState<string>("");
@@ -66,32 +75,38 @@ const EditAccount = () => {
     setBustGirth(event.target.value);
   };
 
-      
-  const handlePicAndBioSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handlePicAndBioSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
-    const base64Image = image.startsWith('data:image') ? image.split(',')[1] : null;
+    const base64Image = image.startsWith("data:image")
+      ? image.split(",")[1]
+      : null;
 
     const payload = JSON.stringify({
-      action: 'UpdatePicAndBio',
+      action: "UpdatePicAndBio",
       username: usernameCookie,
       bio,
       prof_pic: base64Image,
     });
 
     try {
-      const response = await fetch('https://www.cmsc508.com/~24SP_jacksonja13/API.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: payload
-      });
+      const response = await fetch(
+        "https://www.cmsc508.com/~24SP_jacksonja13/API.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: payload,
+        }
+      );
       const data = await response.json();
 
       if (data.success) {
         console.log("Successful update");
         setImage(image);
         setBio(bio);
-        sessionStorage.setItem('profilePic', image);
-        document.cookie = `bio=${encodeURIComponent(bio)}; path=/;`
+        sessionStorage.setItem("profilePic", image);
+        document.cookie = `bio=${encodeURIComponent(bio)}; path=/;`;
       } else {
         console.error("Update failed:", data.message);
       }
@@ -100,11 +115,13 @@ const EditAccount = () => {
     }
   };
 
-  const handleMeasurementsSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleMeasurementsSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
 
     const payload = JSON.stringify({
-      action: 'UpdateMeasurements',
+      action: "UpdateMeasurements",
       username_measurment: usernameCookie,
       head_circumference: headCircumference,
       shoulder_width: shoulderWidth,
@@ -119,11 +136,14 @@ const EditAccount = () => {
     });
 
     try {
-      const response = await fetch('https://www.cmsc508.com/~24SP_jacksonja13/API.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: payload
-      });
+      const response = await fetch(
+        "https://www.cmsc508.com/~24SP_jacksonja13/API.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: payload,
+        }
+      );
       const data = await response.json();
 
       if (data.success) {
@@ -146,7 +166,6 @@ const EditAccount = () => {
     }
   };
 
-
   return (
     <Container>
       <Row className="my-4">
@@ -166,20 +185,24 @@ const EditAccount = () => {
                 rows={3}
                 value={bio}
                 onChange={handleBioChange}
-              />          
+              />
             </Form.Group>
-            <Button variant="primary" type="submit" className="mt-3 mb-5 btn btn-dark">
+            <Button
+              variant="primary"
+              type="submit"
+              className="mt-3 mb-5 btn btn-dark"
+            >
               Update Account
             </Button>
           </Form>
           <Form onSubmit={handleMeasurementsSubmit}>
-          <Form.Group className="mb-3" controlId="formHeadCircumference">
+            <Form.Group className="mb-3" controlId="formHeadCircumference">
               <Form.Label>Head Circumference:</Form.Label>
               <Form.Control
                 type="text"
                 className="input"
                 name="headCircumference"
-                onChange={handleHeadChange} 
+                onChange={handleHeadChange}
                 placeholder="Head Circumference"
                 value={headCircumference}
               />
@@ -190,42 +213,98 @@ const EditAccount = () => {
                 type="text"
                 className="input"
                 name="shoulderWidth"
-                onChange={handleShoulderChange} 
+                onChange={handleShoulderChange}
                 placeholder="Shoulder Width"
                 value={shoulderWidth}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formNeckSize">
               <Form.Label>Neck Size:</Form.Label>
-              <Form.Control type="text" value={neckSize} className="input" name="neckSize" onChange={handleNeckChange}  placeholder="Neck Size" />
+              <Form.Control
+                type="text"
+                value={neckSize}
+                className="input"
+                name="neckSize"
+                onChange={handleNeckChange}
+                placeholder="Neck Size"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formHipMeasurements">
               <Form.Label>Hip Measurements:</Form.Label>
-              <Form.Control type="text" value={hipMeasurments} className="input" name="hipMeasurements" onChange={handleHipChange} placeholder="Hip Measurements" />
+              <Form.Control
+                type="text"
+                value={hipMeasurments}
+                className="input"
+                name="hipMeasurements"
+                onChange={handleHipChange}
+                placeholder="Hip Measurements"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formArmLength">
               <Form.Label>Arm Length:</Form.Label>
-              <Form.Control type="text" value={armLength} className="input" name="armLength" onChange={handleArmChange}  placeholder="Arm Length" />
+              <Form.Control
+                type="text"
+                value={armLength}
+                className="input"
+                name="armLength"
+                onChange={handleArmChange}
+                placeholder="Arm Length"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formLegLength">
               <Form.Label>Leg Length:</Form.Label>
-              <Form.Control type="text" value={legLength} className="input"name="legLength" onChange={handleLegChange}  placeholder="Leg Length" />
+              <Form.Control
+                type="text"
+                value={legLength}
+                className="input"
+                name="legLength"
+                onChange={handleLegChange}
+                placeholder="Leg Length"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formFootLength">
               <Form.Label>Foot Length:</Form.Label>
-              <Form.Control type="text" value={footLength} className="input" name="footLength" onChange={handleFootChange}  placeholder="Foot Length" />
+              <Form.Control
+                type="text"
+                value={footLength}
+                className="input"
+                name="footLength"
+                onChange={handleFootChange}
+                placeholder="Foot Length"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBodyHeight">
               <Form.Label>Body Height:</Form.Label>
-              <Form.Control type="text" value={bodyHeight} className="input" name="bodyHeight" onChange={handleBodyChange}   placeholder="Body Height" />
+              <Form.Control
+                type="text"
+                value={bodyHeight}
+                className="input"
+                name="bodyHeight"
+                onChange={handleBodyChange}
+                placeholder="Body Height"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formShoeSize">
               <Form.Label>Shoe Size:</Form.Label>
-              <Form.Control type="text" value={shoeSize} className="input" name="shoeSize" onChange={handleShoeChange}   placeholder="Shoe Size" />
+              <Form.Control
+                type="text"
+                value={shoeSize}
+                className="input"
+                name="shoeSize"
+                onChange={handleShoeChange}
+                placeholder="Shoe Size"
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formShoeSize">
               <Form.Label>Bust Girth:</Form.Label>
-              <Form.Control type="text" value={bustGirth} className="input" name="bustGirth" onChange={handleBustChange}  placeholder="Bust Girth" />
+              <Form.Control
+                type="text"
+                value={bustGirth}
+                className="input"
+                name="bustGirth"
+                onChange={handleBustChange}
+                placeholder="Bust Girth"
+              />
             </Form.Group>
             <Button
               variant="primary"

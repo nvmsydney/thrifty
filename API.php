@@ -36,6 +36,15 @@ function sign_up() {
             $stmt->bindValue(':gender', $packet_data['gender']);
             $stmt->bindValue(':password', password_hash(base64_decode($packet_data['password']), PASSWORD_DEFAULT));
             $stmt->execute();
+
+            $username = $packet_data['username'];
+
+            $stmt = $conn->prepare("INSERT INTO measurment (username_measurment, arm_length, body_height, bust_girth, foot_length, head_circumference, hip_measurments, leg_length, neck_size, shoe_size, shoulder_width)
+                                    VALUES (:username_measurment, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)");
+                                    
+            $stmt->bindValue(':username_measurment', $username);
+            $stmt->execute();
+
             echo json_encode(['success' => true]);
         } catch (PDOException $e) {
             echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
@@ -211,17 +220,25 @@ function GetUserPost(){
     if(isset($packet_data)){
         try {
             $stmt=$conn->prepare(
-                "SELECT p.post_id as post_id, p.photo_link as photo, p.body_text as caption
-                    FROM post p
-                    WHERE p.username = :username");
+                "SELECT 
+                p.post_id as post_id,
+                p.photo_link as photo,
+                u.bio as bio,
+                brp.post_id as be_real_post_id
+            FROM 
+                post p 
+            LEFT JOIN 
+                user u ON u.username = p.username
+            INNER JOIN 
+                be_real_post brp ON brp.post_id = p.post_id
+            WHERE 
+                p.username = :username");
+
             $stmt->bindValue(':username', $packet_data['username']);
             $stmt->execute();
-            $row=$stmt->execute();
-            while ($row =$stmt->fetch()){
-                $temp[] = array([$row['post_id'], $row['photo'], $row['caption']]);
-            }
-            echo json_encode(array('success' => true, 'profilePostObjec' => $temp));
-        } catch (PDOException $e){
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode(array('success' => true, 'profilePost' => $result));
+            } catch (PDOException $e){
             // Connection failed
             echo json_encode(array('success' => false, 'message' => 'Connection failed: ' . $e->getMessage()));
             exit();
@@ -545,6 +562,98 @@ function GetUsers() {
     }
 }
 
+function UpdatePicAndBio() {
+    $conn = getDB();
+    $data = file_get_contents("php://input");
+    $packet_data = json_decode($data, true);
+
+    try {
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->beginTransaction();
+
+        $stmt = $conn->prepare("UPDATE user
+        SET bio = :bio, prof_pic = :prof_pic
+        WHERE username = :username");
+
+        $stmt->bindValue(':bio', $packet_data['bio']);
+        $stmt->bindValue(':prof_pic', $packet_data['prof_pic']);
+        $stmt->bindValue(':username', $packet_data['username']);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $conn->commit();
+            echo json_encode(['success' => true, 'message' => "Account updated successfully"]);
+        } else {
+            $conn->rollback();
+            echo json_encode(['success' => false, 'message' => "No changes made"]);
+        }
+
+    } catch (PDOException $e) {
+        $conn->rollback();
+        echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+    }
+}
+
+function UpdateMeasurements() {
+    $conn = getDB();
+    $data = file_get_contents("php://input");
+    $packet_data = json_decode($data, true);
+
+    try {
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->beginTransaction();
+    
+
+        $stmt = $conn->prepare("UPDATE measurment
+        SET head_circumference = :head_circumference, shoulder_width = :shoulder_width,
+        neck_size = :neck_size, hip_measurments = :hip_measurments, arm_length = :arm_length,
+        leg_length = :leg_length, foot_length = :foot_length, body_height = :body_height,
+        shoe_size = :shoe_size, bust_girth = :bust_girth
+        WHERE username_measurment = :username");
+
+        $username = $packet_data['username_measurment'];
+
+        print("Head Circumference: " . $packet_data['head_circumference'] . "\n");
+        print("Shoulder Width: " . $packet_data['shoulder_width'] . "\n");
+        print("Neck Size: " . $packet_data['neck_size'] . "\n");
+        print("Hip Measurements: " . $packet_data['hip_measurments'] . "\n");
+        print("Arm Length: " . $packet_data['arm_length'] . "\n");
+        print("Leg Length: " . $packet_data['leg_length'] . "\n");
+        print("Foot Length: " . $packet_data['foot_length'] . "\n");
+        print("Body Height: " . $packet_data['body_height'] . "\n");
+        print("Shoe Size: " . $packet_data['shoe_size'] . "\n");
+        print("Bust Girth: " . $packet_data['bust_girth'] . "\n");
+        print("Username: " . $username . "\n");
+
+        $stmt->bindValue(':head_circumference', $packet_data['head_circumference']);
+        $stmt->bindValue(':shoulder_width', $packet_data['shoulder_width']);
+        $stmt->bindValue(':neck_size', $packet_data['neck_size']);
+        $stmt->bindValue(':hip_measurments', $packet_data['hip_measurments']);
+        $stmt->bindValue(':arm_length', $packet_data['arm_length']);
+        $stmt->bindValue(':leg_length', $packet_data['leg_length']);
+        $stmt->bindValue(':foot_length', $packet_data['foot_length']);
+        $stmt->bindValue(':body_height', $packet_data['body_height']);
+        $stmt->bindValue(':shoe_size', $packet_data['shoe_size']);
+        $stmt->bindValue(':bust_girth', $packet_data['bust_girth']);
+        $stmt->bindValue(':username', $username);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $conn->commit();
+            echo json_encode(['success' => true, 'message' => "Account updated successfully"]);
+        } else {
+            $conn->rollback();
+            echo json_encode(['success' => false, 'message' => "No changes made"]);
+        }
+
+    } catch (PDOException $e) {
+        $conn->rollback();
+        echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+    }
+}
+
+
 // API Action Call
 if(!empty($globalFunctionCall['action']) && $globalFunctionCall['action']== 'SignUp') {
     sign_up();
@@ -584,5 +693,11 @@ if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'G
 }
 if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'GetUsers') {
     GetUsers();
+}
+if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'UpdatePicAndBio') {
+    UpdatePicAndBio();
+}
+if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'UpdateMeasurements') {
+    UpdateMeasurements();
 }
 ?>
