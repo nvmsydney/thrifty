@@ -13,10 +13,10 @@ const Profile = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [profilePost, setProfilePost] = useState<Post[]>([]);
 
-  const usernameCookie = document.cookie.split('; ').find(row => row.startsWith('username='))?.split('=')[1];
+  const username = document.cookie.split('; ').find(row => row.startsWith('username='))?.split('=')[1];
   const profilePic = sessionStorage.getItem('profilePic') || '';
-  const bioCookie = document.cookie.split('; ').find(row => row.startsWith('bio='))?.split('=')[1];
-  const decodedBio = bioCookie ? decodeURIComponent(bioCookie) : '';
+  const bio = document.cookie.split('; ').find(row => row.startsWith('bio='))?.split('=')[1];
+
 
   useEffect(() => {
     const getUserPost = async () => {
@@ -25,7 +25,7 @@ const Profile = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "GetUserPost",
-          username: usernameCookie,
+          username: username,
         })
       });
       const data = await response.json();
@@ -34,8 +34,9 @@ const Profile = () => {
       }
     };
 
-    getUserPost(); 
-  }, [usernameCookie]);
+    getUserPost();
+    
+  }); 
 
   const handleFollowClick = () => {
     setIsFollowing(!isFollowing);
@@ -50,8 +51,8 @@ const Profile = () => {
           <Image src={profilePic} className="avatar2 rounded-circle" />
         </Col>
         <Col md={9}>
-          <h3>{usernameCookie}</h3>
-          <p>{decodedBio}</p>
+          <h3>{username}</h3>
+          <p>{bio}</p>
           <div>
             <strong>{2}</strong> posts
           </div>

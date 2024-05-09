@@ -67,8 +67,8 @@ const Community = () => {
           body: JSON.stringify({
               action: 'AddPost',
               username: userCookie,
-              photo_link:image,
-              body_text:bodyText
+              photo_link: image,
+              body_text: bodyText
           })
       });
       const data = await response.json();

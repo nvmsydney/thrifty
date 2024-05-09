@@ -8,8 +8,6 @@ const [image, setImage] = useState("");
 const [bodyText, setBodyText] = useState("");
 const navigate = useNavigate();
 
-const userCookie = document.cookie.split('; ').find((row) => row.startsWith('username='))?.split('=')[1];
-
     const handleIamgeChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files![0];
         const reader = new FileReader();
@@ -31,6 +29,8 @@ const userCookie = document.cookie.split('; ').find((row) => row.startsWith('use
     }
 
     const handleSubmit = async (event: { preventDefault: () => void; }) =>{
+        const username = sessionStorage.getItem('username') || '';
+
         try {
         event.preventDefault();
         const response = await fetch('https://www.cmsc508.com/~24SP_jacksonja13/API.php', {
@@ -38,7 +38,7 @@ const userCookie = document.cookie.split('; ').find((row) => row.startsWith('use
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 action: 'AddPost',
-                username: userCookie,
+                username: username,
                 photo_link:image,
                 body_text:bodyText
             })
