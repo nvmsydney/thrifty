@@ -7,7 +7,6 @@ import { logoutUser } from "../services/logout";
 
 function NavBar() {
   const navigate = useNavigate();
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
@@ -53,7 +52,6 @@ function NavBar() {
   
   const handleLogout = () => {
     logoutUser();
-    setUserLoggedIn(false);
     setIsAdmin(false);
     navigate("/~24SP_jacksonja13");
   };

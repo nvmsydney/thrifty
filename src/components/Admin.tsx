@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import blazer1 from "../assets/blazer1.avif";
 
 interface Post {
   username: string;

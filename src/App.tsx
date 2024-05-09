@@ -1,8 +1,6 @@
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
-  Navigate,
 } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.css";

@@ -613,18 +613,6 @@ function UpdateMeasurements() {
 
         $username = $packet_data['username_measurment'];
 
-        print("Head Circumference: " . $packet_data['head_circumference'] . "\n");
-        print("Shoulder Width: " . $packet_data['shoulder_width'] . "\n");
-        print("Neck Size: " . $packet_data['neck_size'] . "\n");
-        print("Hip Measurements: " . $packet_data['hip_measurments'] . "\n");
-        print("Arm Length: " . $packet_data['arm_length'] . "\n");
-        print("Leg Length: " . $packet_data['leg_length'] . "\n");
-        print("Foot Length: " . $packet_data['foot_length'] . "\n");
-        print("Body Height: " . $packet_data['body_height'] . "\n");
-        print("Shoe Size: " . $packet_data['shoe_size'] . "\n");
-        print("Bust Girth: " . $packet_data['bust_girth'] . "\n");
-        print("Username: " . $username . "\n");
-
         $stmt->bindValue(':head_circumference', $packet_data['head_circumference']);
         $stmt->bindValue(':shoulder_width', $packet_data['shoulder_width']);
         $stmt->bindValue(':neck_size', $packet_data['neck_size']);
@@ -645,6 +633,74 @@ function UpdateMeasurements() {
         } else {
             $conn->rollback();
             echo json_encode(['success' => false, 'message' => "No changes made"]);
+        }
+
+    } catch (PDOException $e) {
+        $conn->rollback();
+        echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+    }
+}
+
+function BanUser() {
+    $conn = getDB();
+    $data = file_get_contents("php://input");
+    $packet_data = json_decode($data, true);
+
+    try {
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->beginTransaction();
+
+        $username = $packet_data['username'];
+
+        $stmt = $conn->prepare("DELETE FROM user WHERE username = :username");
+
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            $conn->commit();
+            echo json_encode(['success' => true, 'message' => "User banned."]);
+        } else {
+            $conn->rollback();
+            echo json_encode(['success' => false, 'message' => "User not banned."]);
+        }
+
+    } catch (PDOException $e) {
+        $conn->rollback();
+        echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+    }
+}
+
+function GetAdminStatus() {
+    $conn = getDB();
+    $data = file_get_contents("php://input");
+    $packet_data = json_decode($data, true);
+
+    try {
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->beginTransaction();
+
+        $username = $packet_data['username'];
+
+        $stmt = $conn->prepare("SELECT username, is_admin FROM user WHERE username = :username");
+
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $conn->commit();
+
+        if ($result) {
+            echo json_encode([
+                'success' => true,
+                'is_admin' => (bool) $result['is_admin'],
+                'message' => 'Admin status retrieved successfully'
+            ]);
+        } else {
+            echo json_encode([
+                'success' => false,
+                'message' => 'User not found'
+            ]);
         }
 
     } catch (PDOException $e) {
@@ -697,7 +753,10 @@ if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'G
 if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'UpdatePicAndBio') {
     UpdatePicAndBio();
 }
-if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'UpdateMeasurements') {
-    UpdateMeasurements();
+if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'BanUser') {
+    BanUser();
+}
+if (!empty($globalFunctionCall['action']) && $globalFunctionCall['action'] == 'GetAdminStatus') {
+    GetAdminStatus();
 }
 ?>

@@ -46,7 +46,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   }, []);
 
   if (isAdmin === undefined) {
-    return <div>Loading... be patient</div>; // Or any other loading indicator
+    return <div>Loading... be patient</div>;
   }
 
   if (!isAdmin) {
