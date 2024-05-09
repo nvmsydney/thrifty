@@ -28,29 +28,34 @@ const EditAccount = () => {
       
   const handlePicAndBioSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const base64Image = image.startsWith('data:image') ? image.split(',')[1] : null;
+    const base64Image = image.startsWith("data:image")
+      ? image.split(",")[1]
+      : null;
 
     const payload = JSON.stringify({
-      action: 'UpdatePicAndBio',
+      action: "UpdatePicAndBio",
       username: usernameCookie,
       bio,
       prof_pic: base64Image,
     });
 
     try {
-      const response = await fetch('https://www.cmsc508.com/~24SP_jacksonja13/API.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: payload
-      });
+      const response = await fetch(
+        "https://www.cmsc508.com/~24SP_jacksonja13/API.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: payload,
+        }
+      );
       const data = await response.json();
 
       if (data.success) {
         console.log("Successful update");
         setImage(image);
         setBio(bio);
-        sessionStorage.setItem('profilePic', image);
-        document.cookie = `bio=${encodeURIComponent(bio)}; path=/;`
+        sessionStorage.setItem("profilePic", image);
+        document.cookie = `bio=${encodeURIComponent(bio)}; path=/;`;
       } else {
         console.error("Update failed:", data.message);
       }
@@ -78,7 +83,7 @@ const EditAccount = () => {
                 rows={3}
                 value={bio}
                 onChange={handleBioChange}
-              />          
+              />
             </Form.Group>
             <Button variant="primary" type="submit" className="mt-3 mb-5 btn btn-dark">
               Update Account

@@ -16,8 +16,7 @@ const Profile = () => {
   const usernameCookie = document.cookie.split('; ').find(row => row.startsWith('username='))?.split('=')[1];
   const profilePic = sessionStorage.getItem('profilePic') || '';
   const bioCookie = document.cookie.split('; ').find(row => row.startsWith('bio='))?.split('=')[1];
-  const decodedBio = bioCookie ? decodeURIComponent(bioCookie) : "";
-
+  const decodedBio = bioCookie ? decodeURIComponent(bioCookie) : '';
 
   useEffect(() => {
     const getUserPost = async () => {
@@ -52,6 +51,7 @@ const Profile = () => {
         </Col>
         <Col md={9}>
           <h3>{usernameCookie}</h3>
+          <p>{decodedBio}</p>
           <p>{decodedBio}</p>
           <div>
             <strong>{2}</strong> posts
