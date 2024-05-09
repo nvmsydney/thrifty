@@ -173,69 +173,6 @@ const EditAccount = () => {
               Update Account
             </Button>
           </Form>
-          <Form onSubmit={handleMeasurementsSubmit}>
-          <Form.Group className="mb-3" controlId="formHeadCircumference">
-              <Form.Label>Head Circumference:</Form.Label>
-              <Form.Control
-                type="text"
-                className="input"
-                name="headCircumference"
-                onChange={handleHeadChange} 
-                placeholder="Head Circumference"
-                value={headCircumference}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formShoulderWidth">
-              <Form.Label>Shoulder Width:</Form.Label>
-              <Form.Control
-                type="text"
-                className="input"
-                name="shoulderWidth"
-                onChange={handleShoulderChange} 
-                placeholder="Shoulder Width"
-                value={shoulderWidth}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formNeckSize">
-              <Form.Label>Neck Size:</Form.Label>
-              <Form.Control type="text" value={neckSize} className="input" name="neckSize" onChange={handleNeckChange}  placeholder="Neck Size" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formHipMeasurements">
-              <Form.Label>Hip Measurements:</Form.Label>
-              <Form.Control type="text" value={hipMeasurments} className="input" name="hipMeasurements" onChange={handleHipChange} placeholder="Hip Measurements" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formArmLength">
-              <Form.Label>Arm Length:</Form.Label>
-              <Form.Control type="text" value={armLength} className="input" name="armLength" onChange={handleArmChange}  placeholder="Arm Length" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formLegLength">
-              <Form.Label>Leg Length:</Form.Label>
-              <Form.Control type="text" value={legLength} className="input"name="legLength" onChange={handleLegChange}  placeholder="Leg Length" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formFootLength">
-              <Form.Label>Foot Length:</Form.Label>
-              <Form.Control type="text" value={footLength} className="input" name="footLength" onChange={handleFootChange}  placeholder="Foot Length" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBodyHeight">
-              <Form.Label>Body Height:</Form.Label>
-              <Form.Control type="text" value={bodyHeight} className="input" name="bodyHeight" onChange={handleBodyChange}   placeholder="Body Height" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formShoeSize">
-              <Form.Label>Shoe Size:</Form.Label>
-              <Form.Control type="text" value={shoeSize} className="input" name="shoeSize" onChange={handleShoeChange}   placeholder="Shoe Size" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formShoeSize">
-              <Form.Label>Bust Girth:</Form.Label>
-              <Form.Control type="text" value={bustGirth} className="input" name="bustGirth" onChange={handleBustChange}  placeholder="Bust Girth" />
-            </Form.Group>
-            <Button
-              variant="primary"
-              type="submit"
-              className="mt-3 btn btn-dark"
-            >
-              Update Measurements
-            </Button>
-          </Form>
         </Col>
       </Row>
     </Container>
