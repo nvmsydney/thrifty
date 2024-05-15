@@ -86,6 +86,7 @@
 * [![TypeScript][TypeScript]][TypeScript-url]
 * [![React][React.js]][React-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+* [![PHP][PHP]][PHP-url]
 * [![MySQL][MySQL]][MySQL-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -161,3 +162,5 @@ Project Link: [https://github.com/nvmsydney/thrifty](https://github.com/nvmsydne
 [Bootstrap-url]: https://getbootstrap.com
 [MySQL]: https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white
 [MySQL-url]: https://www.mysql.com
+[PHP]: https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white
+[PHP-url]: https://www.php.net
